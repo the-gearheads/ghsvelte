@@ -2,6 +2,7 @@ const QR_CODE_MAX_DATA = 1538; // version 32-Q
 
 import { encode } from "@msgpack/msgpack";
 import crc32 from "$lib/crc32"
+import type Data from "$lib/data";
 
 function hex(arrayBuffer: Uint8Array)
 {
@@ -11,15 +12,7 @@ function hex(arrayBuffer: Uint8Array)
     ).join("");
 }
 
-export interface Data {
-  lowScore: number;
-  highScore: number;
-  midScore: number;
-  stTest: string;
-}
-
 export function encodeAndSegment(data: Data) {
-  debugger;
   const encoded = encode(data);
 
   // first byte is amount of codes, second byte is current code number,then segment things up if encoded length > 1538-2, then a crc32 at the end
