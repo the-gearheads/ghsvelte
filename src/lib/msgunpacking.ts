@@ -1,6 +1,7 @@
 import { decode } from "@msgpack/msgpack";
 import { SEGMENT_SIZE, HEADER_LENGTH, CRC_LENGTH } from "$lib/msgconsts";
 import crc32 from "$lib/crc32";
+import hex from "$lib/hex";
 import type Data from "$lib/data";
 
 export class MsgDecoder {
@@ -16,7 +17,7 @@ export class MsgDecoder {
     const crcMatches = crc.every((v, i) => v === calculatedCrc[i])
 
     if (!crcMatches) {
-      if(this.statusCallback) this.statusCallback(`CRC mismatch ${crc} !== ${calculatedCrc}. Try scanning again.`);
+      if(this.statusCallback) this.statusCallback(`CRC mismatch ${hex(crc)} !== ${hex(calculatedCrc)}. Try scanning again.`);
       return false;
     }
 

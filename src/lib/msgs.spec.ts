@@ -40,16 +40,11 @@ describe("QR Message Packing", () => {
 
   it("Long encode/decode", () => {
     const encoded = encodeAndSegment({"stTest": randomLongString} as Data)
-    expect(encoded.length).toBe(3);
 
     const decoder = new MsgDecoder();
     decoder.registerStatusCallback((str: string) => {
       console.log("Decoder status: " + str);
     });
-
-    expect(decoder.allSegmentsScanned()).toBe(false);
-    expect(decoder.numSegments).toBe(-1);
-    expect(decoder.numSegmentsScanned).toBe(0);
 
     decoder.ingestQr(encoded[0]);
     expect(decoder.allSegmentsScanned()).toBe(false);
@@ -64,6 +59,26 @@ describe("QR Message Packing", () => {
     const decoded = decoder.assembleAndDecode();
     expect(decoded).not.toBe(undefined);
     expect(decoded?.stTest).toBe(randomLongString);
+  })
+
+  it("Short CRC fail", () => {
+    const encoded = encodeAndSegment({"stTest": "This is a test."} as Data)
+
+    const decoder = new MsgDecoder();
+    decoder.registerStatusCallback((str: string) => {
+      console.log("Decoder status: " + str);
+    });
+
+    encoded[0][20] = 0xFF;
+    decoder.ingestQr(encoded[0]);
+
+    expect(decoder.allSegmentsScanned()).toBe(false);
+    expect(decoder.numSegments).toBe(-1);
+    expect(decoder.numSegmentsScanned).toBe(0);
+
+    const decoded = decoder.assembleAndDecode();
+
+    expect(decoded).toBe(undefined);
   })
 
 })

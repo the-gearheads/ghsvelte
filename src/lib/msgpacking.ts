@@ -1,15 +1,8 @@
 import { encode } from "@msgpack/msgpack";
 import { QR_CODE_MAX_DATA, SEGMENT_SIZE, HEADER_LENGTH, CRC_LENGTH } from "$lib/msgconsts";
-import crc32 from "$lib/crc32"
+import crc32 from "$lib/crc32";
+import hex from "$lib/hex";
 import type Data from "$lib/data";
-
-function hex(arrayBuffer: Uint8Array)
-{
-    return Array.prototype.map.call(
-        new Uint8Array(arrayBuffer),
-        n => n.toString(16).padStart(2, "0")
-    ).join("");
-}
 
 export function encodeAndSegment(data: Data) {
   const encoded = encode(data);
