@@ -1,6 +1,7 @@
 <script lang="ts">
-  import QRCode from 'qrcode'
   import { encodeAndSegment } from '$lib/msgpacking'
+  import QrCodeViewer from '$lib/QRCodeViewer.svelte';
+	import type Data from '$lib/data';
 
   let highScore = 0;
   let lowScore = 0;
@@ -11,14 +12,19 @@
 
   let canvas: HTMLCanvasElement;
 
+  const randomLongString = function () {
+    let out = "";
+    for (let i = 0; i < 4000; i++) {
+      out += String.fromCharCode(Math.floor(Math.random() * 94 + 32));
+    }
+    return out;
+  }()
+
+  let data: Uint8Array[] = [];
+
   async function submit() {
-    str = `${highScore} ${lowScore} ${midScore}`
-    let test = encodeAndSegment({highScore, lowScore, midScore, stTest});
-    console.log(test);
-    QRCode.toCanvas(canvas, str, {errorCorrectionLevel: 'M', version: 32}, function (error) {
-      if (error) console.error(error)
-      console.log('success!');
-    })
+    str = randomLongString
+    data = encodeAndSegment({"stTest": str} as Data);
   }
 </script>
 
@@ -31,6 +37,4 @@
 
 <button on:click={submit}>Submit</button>
 
-<p>{str}</p>
-
-<canvas bind:this={canvas} width="400" height="400"></canvas>
+<QrCodeViewer {data} />
