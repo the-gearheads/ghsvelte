@@ -1,6 +1,5 @@
-const QR_CODE_MAX_DATA = 1538; // version 32-Q
-
 import { encode } from "@msgpack/msgpack";
+import { QR_CODE_MAX_DATA, SEGMENT_SIZE, HEADER_LENGTH, CRC_LENGTH } from "$lib/msgconsts";
 import crc32 from "$lib/crc32"
 import type Data from "$lib/data";
 
@@ -15,26 +14,31 @@ function hex(arrayBuffer: Uint8Array)
 export function encodeAndSegment(data: Data) {
   const encoded = encode(data);
 
-  // first byte is amount of codes, second byte is current code number, length of actual data, then segment things up if encoded length > 1538-2, then a crc32 at the end
-  const segmentSize = QR_CODE_MAX_DATA - 3 - 4;
-  console.log(encoded.length, segmentSize);
+  // first byte is amount of codes, second byte is current code number, length of actual data (32bit), then segment things up if encoded length > 1538-2, then a crc32 at the end
+  console.log(encoded.length, SEGMENT_SIZE);
   console.log(encoded);
-  const segments = Math.ceil(encoded.length / segmentSize);
+  const segments = Math.ceil(encoded.length / SEGMENT_SIZE);
 
   let out = [];
   for (let i = 0; i < segments; i++) {
-    const segment = encoded.slice(i * segmentSize, (i + 1) * segmentSize);
-    console.log(i, segment.length, i * segmentSize, (i + 1) * segmentSize);
-    const segmentBuffer = new Uint8Array(segmentSize + 3 + 4);
-    segmentBuffer[0] = segments;
-    segmentBuffer[1] = i;
-    segmentBuffer[2] = segment.length;
-    segmentBuffer.set(segment, 3);
-    const crc = crc32(segmentBuffer.slice(0, segmentBuffer.length - 4));
+    const segmentPayload = encoded.slice(i * SEGMENT_SIZE, (i + 1) * SEGMENT_SIZE);
+    console.log(i, segmentPayload.length, i * SEGMENT_SIZE, (i + 1) * SEGMENT_SIZE);
+
+    const segment = new Uint8Array(QR_CODE_MAX_DATA);
+    segment[0] = segments;
+
+    segment[1] = i;
+    segment[2] = (segmentPayload.length >> 24) & 0xff;
+    segment[3] = (segmentPayload.length >> 16) & 0xff;
+    segment[4] = (segmentPayload.length >> 8) & 0xff;
+    segment[5] = segmentPayload.length & 0xff;
+    segment.set(segmentPayload, HEADER_LENGTH);
+
+    const crc = crc32(segment.slice(0, segment.length - CRC_LENGTH));
     console.log(i, crc, hex(crc))
-    segmentBuffer.set(crc, segmentBuffer.length - 4);
-    console.log(hex(segmentBuffer))
-    out.push(segmentBuffer);
+    segment.set(crc, segment.length - CRC_LENGTH);
+    console.log(hex(segment))
+    out.push(segment);
   }
 
   return out;

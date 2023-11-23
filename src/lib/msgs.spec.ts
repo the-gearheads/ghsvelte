@@ -20,14 +20,19 @@ describe("QR Message Packing", () => {
     decoder.registerStatusCallback((str: string) => {
       console.log("Decoder status: " + str);
     });
+
     expect(decoder.allSegmentsScanned()).toBe(false);
     expect(decoder.numSegments).toBe(-1);
     expect(decoder.numSegmentsScanned).toBe(0);
+
     decoder.ingestQr(encoded[0]);
+
     expect(decoder.allSegmentsScanned()).toBe(true);
     expect(decoder.numSegments).toBe(1);
     expect(decoder.numSegmentsScanned).toBe(1);
+
     const decoded = decoder.assembleAndDecode();
+
     expect(decoded).not.toBe(undefined);
     expect(decoded?.stTest).toBe("This is a test.");
   })
@@ -37,21 +42,25 @@ describe("QR Message Packing", () => {
     const encoded = encodeAndSegment({"stTest": randomLongString} as Data)
     expect(encoded.length).toBe(3);
 
-    
     const decoder = new MsgDecoder();
     decoder.registerStatusCallback((str: string) => {
       console.log("Decoder status: " + str);
     });
+
     expect(decoder.allSegmentsScanned()).toBe(false);
     expect(decoder.numSegments).toBe(-1);
     expect(decoder.numSegmentsScanned).toBe(0);
+
     decoder.ingestQr(encoded[0]);
     expect(decoder.allSegmentsScanned()).toBe(false);
+
     decoder.ingestQr(encoded[1]);
     decoder.ingestQr(encoded[2]);
+
     expect(decoder.allSegmentsScanned()).toBe(true);
     expect(decoder.numSegments).toBe(3);
     expect(decoder.numSegmentsScanned).toBe(3);
+
     const decoded = decoder.assembleAndDecode();
     expect(decoded).not.toBe(undefined);
     expect(decoded?.stTest).toBe(randomLongString);

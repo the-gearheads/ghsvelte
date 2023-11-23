@@ -1,4 +1,5 @@
 import { decode } from "@msgpack/msgpack";
+import { SEGMENT_SIZE, HEADER_LENGTH, CRC_LENGTH } from "$lib/msgconsts";
 import crc32 from "$lib/crc32";
 import type Data from "$lib/data";
 
@@ -10,8 +11,8 @@ export class MsgDecoder {
 
   public ingestQr(data: Uint8Array): boolean {
 
-    const crc = data.slice(data.length - 4);
-    const calculatedCrc = crc32(data.slice(0, data.length - 4));
+    const crc = data.slice(data.length - CRC_LENGTH);
+    const calculatedCrc = crc32(data.slice(0, data.length - CRC_LENGTH));
     const crcMatches = crc.every((v, i) => v === calculatedCrc[i])
 
     if (!crcMatches) {
@@ -33,13 +34,14 @@ export class MsgDecoder {
       return false;
     }
 
-    const segmentLength = data[2];
-    if (segmentLength > data.length - 3 - 4) {
-      if(this.statusCallback) this.statusCallback(`Segment length implausible; ${segmentLength} > ${data.length - 3 - 4}`);
+    const segmentLength = (data[2] << 24) | (data[3] << 16) | (data[4] << 8) | data[5];
+    console.log("segment length is " + segmentLength)
+    if (segmentLength > SEGMENT_SIZE) {
+      if(this.statusCallback) this.statusCallback(`Segment length implausible; ${segmentLength} > ${SEGMENT_SIZE}`);
       return false;
     }
 
-    const segment = data.slice(3, segmentLength + 3);
+    const segment = data.slice(HEADER_LENGTH, segmentLength + HEADER_LENGTH);
 
     if (this.segments[segmentNumber]) {
       if(this.statusCallback) this.statusCallback(`Segment ${segmentNumber} already scanned`);
