@@ -1,16 +1,11 @@
 <script lang="ts">
   import { encodeAndSegment } from '$lib/msgpacking'
   import QrCodeViewer from '$lib/QRCodeViewer.svelte';
-	import type Data from '$lib/data';
+  import type Data from '$lib/data';
 
   let highScore = 0;
   let lowScore = 0;
   let midScore = 0;
-
-  let str = "";
-  let stTest = "this can be a lot of text but i didn't wanna commit 800 words of lorem ipsum";
-
-  let canvas: HTMLCanvasElement;
 
   const randomLongString = function () {
     let out = "";
@@ -23,8 +18,7 @@
   let data: Uint8Array[] = [];
 
   async function submit() {
-    str = randomLongString
-    data = encodeAndSegment({"stTest": str} as Data);
+    data = encodeAndSegment({"stTest": randomLongString} as Data);
   }
 </script>
 
