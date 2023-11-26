@@ -1,5 +1,7 @@
-<script>
+<script lang="ts">
 	import Checkbox from "../form elements/Checkbox.svelte";
+
+    let selected: Record<string, boolean> = {};
 
     let options = [
         {
@@ -25,4 +27,9 @@
     ]
     let question = "Would you rather have unlimited bacon, but no more games. Or games, unlimited games, but no games"
 </script>
-<Checkbox {question} {options}></Checkbox>
+<Checkbox {question} {options} bind:selected={selected}></Checkbox>
+
+<br><br><h4>Here's what you selected:</h4>
+{#each Object.keys(selected) as key}
+    <p><b>{key}:</b> {selected[key]}</p>
+{/each}

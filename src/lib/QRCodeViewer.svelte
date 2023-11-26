@@ -10,7 +10,6 @@
       if (data && data.length != 0) {
         QRCode.toCanvas(canvas, [{data: data[currentCode], mode: 'byte'}], {errorCorrectionLevel: 'Q', version: 39}, function (error) {
           if (error) console.error(error)
-          console.log('success!');
         })
       } else {
         let ctx = canvas.getContext('2d');
@@ -22,14 +21,28 @@
   
 </script>
 
-<canvas bind:this={canvas} width="400" height="400"></canvas>
+<style>
+  canvas {
+    border: 1px solid black;
+    margin: 1em 0 0 0; 
+    display: block;
+  }
+</style>
+
+<canvas bind:this={canvas} width="724" height="724"></canvas>
+<br>
 
 {#if maxCodes > 1}
   <button on:click={()=>{
     currentCode = (currentCode + 1) % maxCodes;
-  }}>Next</button>
+  }}>
+    Next
+  </button>
   <button on:click={()=>{
       currentCode = (currentCode - 1 + maxCodes) % maxCodes;
-    }}>Prev</button>
-  <p>{currentCode + 1} / {maxCodes}</p>
+  }}>
+    Prev
+  </button>
+
+  <span>{currentCode + 1} / {maxCodes}</span>
 {/if}
