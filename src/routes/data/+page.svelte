@@ -1,0 +1,1 @@
+There will be the analysis data if and only if theres a connection on this page

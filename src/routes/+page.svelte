@@ -1,34 +1,28 @@
-<script lang="ts">
-  import { encodeAndSegment } from '$lib/msgpacking'
-  import QrCodeViewer from '$lib/QRCodeViewer.svelte';
-  import type Data from '$lib/data';
+<script>
+	import Checkbox from "../form elements/Checkbox.svelte";
 
-  let highScore = 0;
-  let lowScore = 0;
-  let midScore = 0;
-
-  const randomLongString = function () {
-    let out = "";
-    for (let i = 0; i < 4000; i++) {
-      out += String.fromCharCode(Math.floor(Math.random() * 94 + 32));
-    }
-    return out;
-  }()
-
-  let data: Uint8Array[] = [];
-
-  async function submit() {
-    data = encodeAndSegment({"stTest": randomLongString} as Data);
-  }
+    let options = [
+        {
+            name: 'unlimited games, but no games',
+            value: 'unlimited games, but no games',
+            label: 'unlimited games, but no games'
+        },
+        {
+            name: 'unlimited bacon but no more video games',
+            value: 'unlimited bacon but no more video games',
+            label: 'unlimited bacon but no more video games',
+        },
+        {
+            name: 'could you repeat the question?',
+            value: 'could you repeat the question?',
+            label: 'could you repeat the question?',
+        },
+        {
+            name: 'hoot hoot',
+            value: 'hoot hoot',
+            label: 'hoot hoot',
+        }
+    ]
+    let question = "Would you rather have unlimited bacon, but no more games. Or games, unlimited games, but no games"
 </script>
-
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-
-<p>High node score: <input type="number" min=0 max=100 bind:value={highScore}/></p>
-<p>Low node score: <input type="number" min=0 max=100 bind:value={lowScore}/></p>
-<p>Mid score: <input type="number" min=0 max=100 bind:value={midScore}/></p>
-
-<button on:click={submit}>Submit</button>
-
-<QrCodeViewer {data} />
+<Checkbox {question} {options}></Checkbox>
