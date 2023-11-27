@@ -1,9 +1,33 @@
 <script lang="ts">
 	import Checkbox from "../form elements/Checkbox.svelte";
 	import InputShort from "../form elements/InputShort.svelte";
+    import Radio from "../form elements/Radio.svelte";
 
-    let selected: Record<string, boolean> = {};
+    // input short
     let value: string;
+    // radio
+    let radioOptions = [
+        {
+            value: "Option1",
+            label: "The lettuce"
+        },
+        {
+            value: "Option2",
+            label: "The Cheese"
+        },
+        {
+            value: "Option3",
+            label: "A"
+        },
+        {
+            value: "Option4",
+            label: "Tomate"
+        },
+    ];
+    let radioQuestion = "what are you";
+    let radioSelected: string;
+    // checkbox
+    let selected: Record<string, boolean> = {};
     let options = [
         {
             name: 'unlimited games, but no games',
@@ -30,9 +54,12 @@
 </script>
 <Checkbox {question} {options} bind:selected></Checkbox>
 <InputShort label="What is the capital of ecuador?" bind:value></InputShort>
+<Radio bind:selected={radioSelected} question={radioQuestion} options={radioOptions}></Radio>
 
-<b>You entered: {value}</b>
-<br><br><h4>Here's what you selected:</h4>
+<br><br>
+<h4>Here's what you selected:</h4>
+<b>You radio selected: </b><p>{radioSelected}</p>
+<b>You entered in the short input: </b><p>{value}</p>
 {#each Object.keys(selected) as key}
     <p><b>{key}:</b> {selected[key]}</p>
 {/each}
