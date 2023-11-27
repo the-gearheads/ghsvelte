@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Checkbox from "../form elements/Checkbox.svelte";
-	import InputShort from "../form elements/InputShort.svelte";
-    import Radio from "../form elements/Radio.svelte";
+	import Checkbox from "$lib/form elements/Checkbox.svelte";
+	import InputShort from "$lib/form elements/InputShort.svelte";
+    import Radio from "$lib/form elements/Radio.svelte";
 
     // input short
     let value: string;
