@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Checkbox from "$lib/form elements/Checkbox.svelte";
+	import InputLong from "$lib/form elements/InputLong.svelte";
 	import InputShort from "$lib/form elements/InputShort.svelte";
     import Radio from "$lib/form elements/Radio.svelte";
 	import Slider from "$lib/form elements/Slider.svelte";
@@ -9,6 +10,10 @@
     let step = 50;
     // input short
     let value: string;
+    // input long
+    let longInput: string;
+    let longLabel = "HHHHHHHHHHHHAAAAAAAAAAAAA";
+    let name = "What is this?";
     // radio
     let radioOptions = [
         {
@@ -60,11 +65,12 @@
 <InputShort label="What is the capital of ecuador?" bind:value></InputShort>
 <Radio bind:selected={radioSelected} question={radioQuestion} options={radioOptions}></Radio>
 <Slider step={5} bind:value={sliderValue}></Slider>
-
+<InputLong label={longLabel} bind:value={longInput} {name}></InputLong>
 <br><br>
 <h4>Here's what you selected:</h4>
 <b>You radio selected: </b><p>{radioSelected}</p>
 <b>You entered in the short input: </b><p>{value}</p>
+<b>You entered in the long input: </b><p>{longInput}</p>
 {#each Object.keys(selected) as key}
     <p><b>{key}:</b> {selected[key]}</p>
 {/each}
