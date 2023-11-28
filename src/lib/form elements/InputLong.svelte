@@ -9,4 +9,4 @@
 
 <TextArea {name} {placeholder} bind:value style="padding: 0.5em">
 	<TextArea.Label slot="label">{label}</TextArea.Label>
-</TextArea>
+</TextArea> 

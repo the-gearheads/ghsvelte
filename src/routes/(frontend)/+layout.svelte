@@ -36,7 +36,7 @@
   </Tabs.Tab>
   {/each}
 </Tabs>
-<Badge style='float: right; margin: 0.3em' type='success'>Connection</Badge>
+<!-- <Badge style='float: right; margin: 0.3em' type='success'>Connection</Badge> -->
 
 <!-- Slot is where actual page is rendered  -->
 <slot />
