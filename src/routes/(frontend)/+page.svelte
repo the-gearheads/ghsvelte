@@ -2,7 +2,11 @@
 	import Checkbox from "$lib/form elements/Checkbox.svelte";
 	import InputShort from "$lib/form elements/InputShort.svelte";
     import Radio from "$lib/form elements/Radio.svelte";
+	import Slider from "$lib/form elements/Slider.svelte";
 
+    // slider
+    let sliderValue: number;
+    let step = 50;
     // input short
     let value: string;
     // radio
@@ -55,6 +59,7 @@
 <Checkbox {question} {options} bind:selected></Checkbox>
 <InputShort label="What is the capital of ecuador?" bind:value></InputShort>
 <Radio bind:selected={radioSelected} question={radioQuestion} options={radioOptions}></Radio>
+<Slider step={5} bind:value={sliderValue}></Slider>
 
 <br><br>
 <h4>Here's what you selected:</h4>
