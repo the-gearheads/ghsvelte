@@ -1,8 +1,10 @@
 <script lang="ts">
+    /*
 	import Checkbox from "$lib/form elements/Checkbox.svelte";
 	import InputLong from "$lib/form elements/InputLong.svelte";
 	import InputShort from "$lib/form elements/InputShort.svelte";
     import Radio from "$lib/form elements/Radio.svelte";
+    */
 	import Slider from "$lib/form elements/Slider.svelte";
 
     // slider
@@ -61,11 +63,15 @@
     ]
     let question = "Would you rather have unlimited bacon, but no more games. Or games, unlimited games, but no games"
 </script>
+<!--
 <Checkbox {question} {options} bind:selected></Checkbox>
 <InputShort label="What is the capital of ecuador?" bind:value></InputShort>
 <Radio bind:selected={radioSelected} question={radioQuestion} options={radioOptions}></Radio>
+-->
 <Slider step={5} bind:value={sliderValue}></Slider>
+<!--
 <InputLong label={longLabel} bind:value={longInput} {name}></InputLong>
+-->
 <br><br>
 <h4>Here's what you selected:</h4>
 <b>You radio selected: </b><p>{radioSelected}</p>

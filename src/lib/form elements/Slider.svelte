@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Slider } from 'stwui';
+	import { Range } from "flowbite-svelte"
     
     export let step: number;
     export let value = -1
 </script>
 
-<Slider bind:value {step} style="background:rgb(245,245,245); border-radius: 10%; padding: 0.5em"/>
+<Range bind:value {step} _style="background:rgb(245,245,245); border-radius: 10%; padding: 0.5em"/>
