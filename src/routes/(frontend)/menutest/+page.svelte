@@ -1,6 +1,7 @@
 
 <script lang="ts">
-	import { Button, Portal, Drawer, Icon } from 'stwui';
+	
+	//import { Button, Portal, Drawer, Icon } from 'stwui';
 
 	let open = false;
 	function openDrawer() {
@@ -17,6 +18,7 @@
 <button type="button" on:click={openDrawer}>
 	<img src="/menu.svg" width=7% alt="Menu Button" />
 </button>
+<!--
 <Portal>
 	{#if open}
 		<Drawer handleClose={closeDrawer} placement=left>
@@ -26,3 +28,4 @@
 		</Drawer>
 	{/if}
 </Portal>
+-->

@@ -1,34 +1,31 @@
 <script lang="ts">
   import "../../app.pcss";
-  /*
-  import { Tabs, Badge } from 'stwui';
-
+  import { page } from "$app/stores"
+  import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
+  
   interface Tab {
       href: string;
       title: string;
-      data: string;
   }
 
   const tabs: Tab[] = [
   {
     href: '/',
     title: 'Main',
-    data: ''
   },
   {
     href: '/data',
     title: 'Data',
-    data: ''
   },
   {
     href: '/qr',
     title: 'QR Codes',
-    data: ''
   },
 ];
 
-  let currentTab = "/"
-  */
+  $: activeUrl = $page.url.pathname
+  $: console.log("active url updated " + activeUrl)
+  
 </script>
 
 <!--
@@ -41,6 +38,19 @@
 </Tabs>
 -->
 <!-- <Badge style='float: right; margin: 0.3em' type='success'>Connection</Badge> -->
+
+<Navbar class="shadow mb-2">
+  <NavHamburger />
+  <NavBrand href="/">
+    <img src="/gearhead.png" alt="logo" class="me-3 h-6 sm:h-9" />
+    <span class="text-lg font-bold">Gearhead</span>
+  </NavBrand>
+  <NavUl {activeUrl}>
+    {#each tabs as tab, i}
+      <NavLi href={tab.href}>{tab.title}</NavLi>
+    {/each}
+  </NavUl>
+</Navbar>
 
 <!-- Slot is where actual page is rendered  -->
 <slot />
