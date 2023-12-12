@@ -29,18 +29,13 @@
   
 </script>
 
-<!--
-<Tabs {currentTab} style="display: flex">
-  {#each tabs as tab, i}
-  <Tabs.Tab style="flex-grow: 1; justify-content: center" key={tab.href} href={tab.href} on:click={() => (currentTab = tab.href)}>
-    {tab.title}
-  </Tabs.Tab>
-  {/each}
-</Tabs>
--->
-<!-- <Badge style='float: right; margin: 0.3em' type='success'>Connection</Badge> -->
+<style>
+  .active {
+    color: orangered;
+  }
+</style>
 
-<AppBar class="mb-3">
+<AppBar class="mb-3 shadow">
 	<svelte:fragment slot="lead"><span>GEARHAEDS</span></svelte:fragment>
 	Top 10 Scouting Apps
 	<svelte:fragment slot="trail">
