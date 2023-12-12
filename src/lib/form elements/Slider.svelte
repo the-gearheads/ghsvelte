@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Range } from "flowbite-svelte"
+	import { RangeSlider } from "@skeletonlabs/skeleton"
     
     export let step: number;
-    export let value = -1
+    export let value = 0;
 </script>
 
-<Range bind:value {step} _style="background:rgb(245,245,245); border-radius: 10%; padding: 0.5em"/>
+<RangeSlider name="range-slider" bind:value {step} _style="background:rgb(245,245,245); border-radius: 10%; padding: 0.5em"/>

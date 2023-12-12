@@ -74,6 +74,7 @@
 -->
 <br><br>
 <h4>Here's what you selected:</h4>
+<b>You slidered: </b><p>{sliderValue}</p>
 <b>You radio selected: </b><p>{radioSelected}</p>
 <b>You entered in the short input: </b><p>{value}</p>
 <b>You entered in the long input: </b><p>{longInput}</p>

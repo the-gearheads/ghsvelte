@@ -1,7 +1,8 @@
 <script lang="ts">
   import "../../app.pcss";
   import { page } from "$app/stores"
-  import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
+  import { AppBar } from "@skeletonlabs/skeleton"
+  import { LightSwitch } from '@skeletonlabs/skeleton';
   
   interface Tab {
       href: string;
@@ -39,18 +40,15 @@
 -->
 <!-- <Badge style='float: right; margin: 0.3em' type='success'>Connection</Badge> -->
 
-<Navbar class="shadow mb-2">
-  <NavHamburger />
-  <NavBrand href="/">
-    <img src="/gearhead.png" alt="logo" class="me-3 h-6 sm:h-9" />
-    <span class="text-lg font-bold">Gearhead</span>
-  </NavBrand>
-  <NavUl {activeUrl}>
-    {#each tabs as tab, i}
-      <NavLi href={tab.href}>{tab.title}</NavLi>
+<AppBar class="mb-3">
+	<svelte:fragment slot="lead"><span>GEARHAEDS</span></svelte:fragment>
+	Top 10 Scouting Apps
+	<svelte:fragment slot="trail">
+    {#each tabs as tab,i}
+      <a href={tab.href} class:active={activeUrl === tab.href}>{tab.title}</a>
     {/each}
-  </NavUl>
-</Navbar>
-
+    <LightSwitch />
+  </svelte:fragment>
+</AppBar>
 <!-- Slot is where actual page is rendered  -->
 <slot />
