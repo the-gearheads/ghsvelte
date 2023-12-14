@@ -1,11 +1,11 @@
 <script lang="ts">
     /*
 	import Checkbox from "$lib/form elements/Checkbox.svelte";
-	import InputLong from "$lib/form elements/InputLong.svelte";
-	import InputShort from "$lib/form elements/InputShort.svelte";
-    import Radio from "$lib/form elements/Radio.svelte";
     */
+    import InputLong from "$lib/form elements/InputLong.svelte";
 	import Slider from "$lib/form elements/Slider.svelte";
+    import InputShort from "$lib/form elements/InputShort.svelte";
+    import Radio from "$lib/form elements/Radio.svelte";
 
     // slider
     let sliderValue: number;
@@ -65,13 +65,13 @@
 </script>
 <!--
 <Checkbox {question} {options} bind:selected></Checkbox>
-<InputShort label="What is the capital of ecuador?" bind:value></InputShort>
-<Radio bind:selected={radioSelected} question={radioQuestion} options={radioOptions}></Radio>
 -->
 <Slider step={5} bind:value={sliderValue}></Slider>
-<!--
-<InputLong label={longLabel} bind:value={longInput} {name}></InputLong>
--->
+<InputLong label={longLabel} bind:value={longInput} placeholder="this is a placeholder" />
+<InputShort label="What is the capital of ecuador?" bind:value placeholder="i bet you don't know" />
+<Radio bind:selected={radioSelected} question={radioQuestion} options={radioOptions} />
+
+
 <br><br>
 <h4>Here's what you selected:</h4>
 <b>You slidered: </b><p>{sliderValue}</p>

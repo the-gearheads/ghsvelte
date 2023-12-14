@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { Input } from 'stwui';
-
     export let label = "";
     export let value = "";
-
+    export let placeholder = "";
 </script>
 
-<Input bind:value={value} name="input" style="padding: 0.5em">
-	<Input.Label slot="label">{label}</Input.Label>
-</Input>
+<label class="label">
+    <span>{label}</span>
+    <input class="input" title={label} type="text" {placeholder} bind:value />
+</label>
