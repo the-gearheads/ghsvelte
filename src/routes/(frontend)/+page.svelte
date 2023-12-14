@@ -1,11 +1,10 @@
 <script lang="ts">
-    /*
-	import Checkbox from "$lib/form elements/Checkbox.svelte";
-    */
-    import InputLong from "$lib/form elements/InputLong.svelte";
-	import Slider from "$lib/form elements/Slider.svelte";
-    import InputShort from "$lib/form elements/InputShort.svelte";
-    import Radio from "$lib/form elements/Radio.svelte";
+    import InputLong from "$lib/formElements/InputLong.svelte";
+	import Slider from "$lib/formElements/Slider.svelte";
+    import InputShort from "$lib/formElements/InputShort.svelte";
+    import Radio from "$lib/formElements/Radio.svelte";
+    import Checkbox from "$lib/formElements/Checkbox.svelte";
+
 
     // slider
     let sliderValue: number;
@@ -38,7 +37,7 @@
     let radioQuestion = "what are you";
     let radioSelected: string;
     // checkbox
-    let selected: Record<string, boolean> = {};
+    let selected: string[] = [];
     let options = [
         {
             name: 'unlimited games, but no games',
@@ -63,10 +62,9 @@
     ]
     let question = "Would you rather have unlimited bacon, but no more games. Or games, unlimited games, but no games"
 </script>
-<!--
-<Checkbox {question} {options} bind:selected></Checkbox>
--->
-<Slider step={5} bind:value={sliderValue}></Slider>
+
+<Checkbox {question} {options} bind:selected />
+<Slider step={5} bind:value={sliderValue} />
 <InputLong label={longLabel} bind:value={longInput} placeholder="this is a placeholder" />
 <InputShort label="What is the capital of ecuador?" bind:value placeholder="i bet you don't know" />
 <Radio bind:selected={radioSelected} question={radioQuestion} options={radioOptions} />
@@ -78,6 +76,6 @@
 <b>You radio selected: </b><p>{radioSelected}</p>
 <b>You entered in the short input: </b><p>{value}</p>
 <b>You entered in the long input: </b><p>{longInput}</p>
-{#each Object.keys(selected) as key}
-    <p><b>{key}:</b> {selected[key]}</p>
+{#each selected as obj, i}
+    <p><b>{i}:</b> {obj}</p>
 {/each}
