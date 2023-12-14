@@ -40,7 +40,8 @@
 	Top 10 Scouting Apps
 	<svelte:fragment slot="trail">
     {#each tabs as tab,i}
-      <a href={tab.href} class:active={activeUrl === tab.href}>{tab.title}</a>
+      <!-- yeah its a little cursed -->
+      <a href={tab.href} class:active={(activeUrl === '/' ? activeUrl : activeUrl.replace(/\/$/, '')) === tab.href}>{tab.title}</a>
     {/each}
     <LightSwitch />
   </svelte:fragment>
