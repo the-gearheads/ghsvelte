@@ -19,6 +19,7 @@
 		"@skeletonlabs/tw-plugin": "^0.3.0",
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.27.4",
+		"@tailwindcss/forms": "^0.5.7",
 		"@testing-library/svelte": "^4.0.5",
 		"@types/node": "^20.10.4",
 		"@types/qrcode": "^1.5.5",
@@ -42,7 +43,6 @@
 	"type": "module",
 	"dependencies": {
 		"@msgpack/msgpack": "^3.0.0-beta2",
-		"@tailwindcss/forms": "^0.5.7",
 		"qrcode": "^1.5.3"
 	}
 }
