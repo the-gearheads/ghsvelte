@@ -2,9 +2,8 @@
     export let options: Checkbox[];
     export let question: string;
     interface Checkbox {
-        name: string;
-        value: string;
-        label: string;
+        id: string;
+        text: string;
     }
 
     export let selected: string[] = [];
@@ -15,8 +14,8 @@
     <div class="space-y-2">
         {#each options as option, i}
     	    <label class="flex items-center space-x-2">
-    	    	<input class="checkbox" type="checkbox" bind:group={selected} name="test" value={option.value} />
-    	    	<p>{option.label}</p>
+    	    	<input class="checkbox" type="checkbox" bind:group={selected} value={option.id} />
+    	    	<p>{option.text}</p>
     	    </label>
         {/each}
     </div>
