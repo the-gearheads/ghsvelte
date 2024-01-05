@@ -34,4 +34,7 @@
   <br>
 {/each}
 
+
 <!-- todo: display/save/submit answers -->
+
+<p>{JSON.stringify(answers)}</p>
