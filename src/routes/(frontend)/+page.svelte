@@ -14,7 +14,9 @@
 	let answers: Record<string, any> = {};
 
 	let questions: Writable<QuestionList> = localStore('questions', []);
-	$questions = data.questions;
+	if(data.questions.length != 0) {
+		$questions = data.questions;
+	}
 
 	$questions.forEach((question) => {
 		if ('default' in question) {

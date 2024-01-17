@@ -4,7 +4,7 @@ import type { QuestionList } from '$lib/questions.ts';
 const questions: QuestionList = [
   {
     type: "radio",
-    question: "What is your favorite color?",
+    question: "What is your favorite colorsss?",
     id: "color",
     options: [
       {

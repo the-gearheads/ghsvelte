@@ -23,6 +23,7 @@
 		"@testing-library/svelte": "^4.0.5",
 		"@types/node": "^20.10.6",
 		"@types/qrcode": "^1.5.5",
+		"@vite-pwa/sveltekit": "^0.3.0",
 		"@vitest/ui": "^0.34.6",
 		"autoprefixer": "^10.4.16",
 		"jsdom": "^23.0.1",
@@ -36,6 +37,7 @@
 		"tslib": "^2.6.2",
 		"typescript": "^5.3.3",
 		"vite": "^5.0.10",
+		"vite-plugin-pwa": "^0.17.4",
 		"vite-plugin-tailwind-purgecss": "^0.2.0",
 		"vitest": "^0.34.6",
 		"vitest-dom": "^0.1.1"
