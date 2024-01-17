@@ -41,7 +41,7 @@ interface SliderQuestion extends BaseQuestion {
   min: number,
   max: number,
   step: number,
-  default: number,
+  default?: number,
 }
 
 export type Question = RadioQuestion | CheckboxQuestion | LongTextQuestion | ShortTextQuestion | SliderQuestion;
@@ -66,7 +66,6 @@ export const questions: QuestionList = [
         id: "yellow",
         text: "Yellow",
       },
-
     ],
     "default": "red"
   },
@@ -75,5 +74,23 @@ export const questions: QuestionList = [
     question: "Explain your previous answer in a 3000 word essay.",
     id: "essay",
     placeholder: "I like the color purple because..."
+  },
+  {
+    "type": "slider",
+    "question": "How much do you like the color purple?",
+    "id": "slider",
+    "min": 0,
+    "max": 10,
+    "step": 1,
+    "default": 6
+  },
+  {
+    "type": "slider",
+    "question": "How much do you like the color red?",
+    "id": "slider2",
+    "min": 0,
+    "max": 10,
+    "step": 1,
+    "default": 5
   }
 ]

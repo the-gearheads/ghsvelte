@@ -2,8 +2,17 @@ type Id = string;
 type Answer = string | string[] | number;
 export default interface Data {
   event: string;
-  matchNo: number;
-  teamNo: number;
-  postiion: number;
-  answers: Record<Id, Answer>;
+  username: string;
+  matchData: {
+    /* match number */
+    matchN: number;
+    /* team number */
+    teamN: number;
+    /* alliance color */
+    alliance: "red" | "blue";
+    /* position on alliance */
+    pos: number;
+    /* anwers */
+    ans: Record<Id, Answer>;
+  }
 }

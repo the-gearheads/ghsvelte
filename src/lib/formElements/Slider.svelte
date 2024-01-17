@@ -1,8 +1,15 @@
 <script lang="ts">
 	import { RangeSlider } from "@skeletonlabs/skeleton"
     
-    export let step: number;
+    export let step: number|undefined = undefined;
+    export let name = "";
     export let value = 0;
+    export let min: number|undefined = undefined;
+    export let max: number|undefined = undefined;
 </script>
 
-<RangeSlider name="range-slider" bind:value {step} _style="background:rgb(245,245,245); border-radius: 10%; padding: 0.5em"/>
+<label class="label" for="range-slider">
+    <span>{name}</span>
+    <RangeSlider name="range-slider" bind:value {step} {min} {max} />
+    <span>{value}</span>
+</label>

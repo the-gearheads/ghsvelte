@@ -36,8 +36,7 @@
 </style>
 
 <AppBar class="mb-3 shadow">
-	<svelte:fragment slot="lead"><span>GEARHAEDS</span></svelte:fragment>
-	Top 10 Scouting Apps
+	<svelte:fragment slot="lead"><img class="object-contain h-10" alt="logo" src="/gearhead.png"></svelte:fragment>
 	<svelte:fragment slot="trail">
     {#each tabs as tab,i}
       <!-- yeah its a little cursed -->
@@ -50,7 +49,9 @@
 <Toast position="tr" />
 
 <!-- Slot is where actual page is rendered  -->
-<slot />
+<div class="container mx-auto">
+  <slot />
+</div>
 
 <!-- Really just triggers the toast above -->
 {#await import('$lib/ReloadPrompt.svelte') then { default: ReloadPrompt}}

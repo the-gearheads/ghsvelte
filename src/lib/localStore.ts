@@ -8,7 +8,14 @@ const localStore = <T>(key: string, initValue: T): Writable<T> => {
   if (!browser) return store;
 
   const storedValueStr = localStorage.getItem(key);
-  if (storedValueStr != null) store.set(JSON.parse(storedValueStr));
+  try {
+    if (storedValueStr != null) store.set(JSON.parse(storedValueStr));
+  } catch (e) {
+    // meh just reset it
+    console.log(`Error parsing localStore value (it was ${storedValueStr}), resetting to initValue`);
+    store.set(initValue);
+    localStorage.setItem(key, JSON.stringify(initValue));
+  }
 
   store.subscribe((val) => {
     if (val === null || val === undefined) {
