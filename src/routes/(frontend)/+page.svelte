@@ -6,8 +6,8 @@
 	import Checkbox from '$lib/formElements/Checkbox.svelte';
 	import localStore from '$lib/localStore';
 	import type { Writable } from 'svelte/store';
-	import { questions, type QuestionList } from '$lib/questions';
-	import type Data from '$lib/data';
+	import { questions, type QuestionList } from '$lib/data/questions';
+	import type Data from '$lib/data/data';
 
 
 	let answers: Writable<Record<string, any>> = localStore('answers', {} as Record<string, any>);

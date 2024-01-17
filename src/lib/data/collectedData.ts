@@ -1,5 +1,6 @@
 type Id = string;
 type Answer = string | string[] | number;
+/* Keys gotta be short since they're in the QR code */
 export default interface Data {
   event: string;
   username: string;

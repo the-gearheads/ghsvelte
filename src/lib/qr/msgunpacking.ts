@@ -1,8 +1,8 @@
 import { decode } from "@msgpack/msgpack";
-import { SEGMENT_SIZE, HEADER_LENGTH, CRC_LENGTH } from "$lib/msgconsts";
-import crc32 from "$lib/crc32";
-import hex from "$lib/hex";
-import type Data from "$lib/data";
+import { SEGMENT_SIZE, HEADER_LENGTH, CRC_LENGTH } from "./msgconsts";
+import crc32 from "./crc32";
+import hex from "./hex";
+import type Data from "$lib/data/collectedData";
 
 export class MsgDecoder {
   public numSegments: number = -1;
