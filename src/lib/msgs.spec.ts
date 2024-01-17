@@ -12,7 +12,7 @@ const randomLongString = function () {
 
 describe("QR Message Packing", () => {
   it("Short encode/decode", () => {
-    const encoded = encodeAndSegment({"stTest": "This is a test."} as Data)
+    const encoded = encodeAndSegment({"stTest": "This is a test."} as unknown as Data)
     expect(encoded.length).toBe(1);
 
     
@@ -34,12 +34,12 @@ describe("QR Message Packing", () => {
     const decoded = decoder.assembleAndDecode();
 
     expect(decoded).not.toBe(undefined);
-    expect(decoded?.stTest).toBe("This is a test.");
+    expect((decoded as any)?.stTest).toBe("This is a test.");
   })
 
 
   it("Long encode/decode", () => {
-    const encoded = encodeAndSegment({"stTest": randomLongString} as Data)
+    const encoded = encodeAndSegment({"stTest": randomLongString} as unknown as Data)
 
     const decoder = new MsgDecoder();
     decoder.registerStatusCallback((str: string) => {
@@ -49,20 +49,21 @@ describe("QR Message Packing", () => {
     decoder.ingestQr(encoded[0]);
     expect(decoder.allSegmentsScanned()).toBe(false);
 
-    decoder.ingestQr(encoded[1]);
-    decoder.ingestQr(encoded[2]);
+    for(let i = 1; i < encoded.length; i++) {
+      decoder.ingestQr(encoded[i]);
+    }
 
+    expect(decoder.numSegments).toBe(15);
+    expect(decoder.numSegmentsScanned).toBe(15);
     expect(decoder.allSegmentsScanned()).toBe(true);
-    expect(decoder.numSegments).toBe(3);
-    expect(decoder.numSegmentsScanned).toBe(3);
 
     const decoded = decoder.assembleAndDecode();
     expect(decoded).not.toBe(undefined);
-    expect(decoded?.stTest).toBe(randomLongString);
+    expect((decoded as any)?.stTest).toBe(randomLongString);
   })
 
   it("Short CRC fail", () => {
-    const encoded = encodeAndSegment({"stTest": "This is a test."} as Data)
+    const encoded = encodeAndSegment({"stTest": "This is a test."} as unknown as Data)
 
     const decoder = new MsgDecoder();
     decoder.registerStatusCallback((str: string) => {

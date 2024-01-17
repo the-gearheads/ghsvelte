@@ -18,7 +18,7 @@
   let data: Uint8Array[] = [];
 
   async function submit() {
-    data = encodeAndSegment({"stTest": randomLongString} as Data);
+    data = encodeAndSegment({"stTest": randomLongString} as unknown as Data);
   }
 </script>
 

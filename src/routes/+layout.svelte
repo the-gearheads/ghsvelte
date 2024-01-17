@@ -1,7 +1,9 @@
 <script>
   import { pwaInfo } from 'virtual:pwa-info'
+  import { initializeStores } from '@skeletonlabs/skeleton';
 
-  $: webManifest = pwaInfo ? pwaInfo.webManifest.linkTag : ''  
+  initializeStores();
+  $: webManifest = pwaInfo ? pwaInfo.webManifest.linkTag : ''
 </script>
 
 <svelte:head>
@@ -11,7 +13,3 @@
 <main>
   <slot />
 </main>
-
-{#await import('$lib/ReloadPrompt.svelte') then { default: ReloadPrompt}}
-  <ReloadPrompt />
-{/await}

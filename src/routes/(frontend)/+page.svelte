@@ -6,40 +6,33 @@
 	import Checkbox from '$lib/formElements/Checkbox.svelte';
 	import localStore from '$lib/localStore';
 	import type { Writable } from 'svelte/store';
-	import type { QuestionList } from '$lib/questions';
-	import type { PageData } from './$types';
+	import { questions } from '$lib/questions';
 
-	export let data: PageData;
 
-	let answers: Record<string, any> = {};
+	let answers: Writable<Record<string, any>> = localStore('answers', {} as Record<string, any>);
 
-	let questions: Writable<QuestionList> = localStore('questions', []);
-	if(data.questions.length != 0) {
-		$questions = data.questions;
-	}
-
-	$questions.forEach((question) => {
-		if ('default' in question) {
-			answers[question.id] = question.default;
+	questions.forEach((question) => {
+		if ('default' in question && !(question.id in $answers)) {
+			$answers[question.id] = question.default;
 		}
 	});
 </script>
 
-{#each $questions as question, i}
+{#each questions as question, i}
 	{#if question.type == 'slider'}
-		<Slider step={question.step} bind:value={answers[question.id]} />
+		<Slider step={question.step} bind:value={$answers[question.id]} />
 	{/if}
   {#if question.type == 'shorttext'}
-    <InputShort label={question.question} bind:value={answers[question.id]} />
+    <InputShort label={question.question} bind:value={$answers[question.id]} />
   {/if}
   {#if question.type == 'longtext'}
-    <InputLong label={question.question} bind:value={answers[question.id]} />
+    <InputLong label={question.question} bind:value={$answers[question.id]} />
   {/if}
   {#if question.type == 'radio'}
-    <Radio bind:selected={answers[question.id]} question={question.question} options={question.options} />
+    <Radio bind:selected={$answers[question.id]} question={question.question} options={question.options} />
   {/if}
   {#if question.type == 'checkbox'}
-    <Checkbox question={question.question} bind:selected={answers[question.id]} options={question.options} />
+    <Checkbox question={question.question} bind:selected={$answers[question.id]} options={question.options} />
   {/if}
   <br>
 {/each}
@@ -47,4 +40,4 @@
 
 <!-- todo: display/save/submit answers -->
 
-<p>{JSON.stringify(answers)}</p>
+<p>{JSON.stringify($answers)}</p>

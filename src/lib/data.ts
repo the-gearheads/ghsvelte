@@ -1,6 +1,9 @@
+type Id = string;
+type Answer = string | string[] | number;
 export default interface Data {
-  lowScore: number;
-  highScore: number;
-  midScore: number;
-  stTest: string;
+  event: string;
+  matchNo: number;
+  teamNo: number;
+  postiion: number;
+  answers: Record<Id, Answer>;
 }

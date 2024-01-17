@@ -1,7 +1,7 @@
 <script lang="ts">
   import "../../app.pcss";
   import { page } from "$app/stores"
-  import { AppBar } from "@skeletonlabs/skeleton"
+  import { AppBar, Toast } from "@skeletonlabs/skeleton"
   import { LightSwitch } from '@skeletonlabs/skeleton';
   
   interface Tab {
@@ -46,5 +46,13 @@
     <LightSwitch />
   </svelte:fragment>
 </AppBar>
+
+<Toast position="tr" />
+
 <!-- Slot is where actual page is rendered  -->
 <slot />
+
+<!-- Really just triggers the toast above -->
+{#await import('$lib/ReloadPrompt.svelte') then { default: ReloadPrompt}}
+  <ReloadPrompt />
+{/await}
