@@ -8,7 +8,7 @@
 
   $: if(canvas) {
       if (data && data.length != 0) {
-        QRCode.toCanvas(canvas, [{data: data[currentCode], mode: 'byte'}], {errorCorrectionLevel: 'Q', version: 39}, function (error) {
+        QRCode.toCanvas(canvas, [{data: data[currentCode], mode: 'byte'}], {errorCorrectionLevel: 'M', version: 12}, function (error) {
           if (error) console.error(error)
         })
       } else {

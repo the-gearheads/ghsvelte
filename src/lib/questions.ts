@@ -46,31 +46,4 @@ interface SliderQuestion extends BaseQuestion {
 
 export type Question = RadioQuestion | CheckboxQuestion | LongTextQuestion | ShortTextQuestion | SliderQuestion;
 
-export const questions: Question[] = [
-  {
-    type: "radio",
-    question: "What is your favorite color?",
-    id: "color",
-    options: [
-      {
-        id: "red",
-        text: "Red"
-      },
-      {
-        id: "blue",
-        "text": "Blue"
-      },
-      {
-        id: "yellow",
-        text: "Yellow"
-      },
-
-    ]
-  },
-  {
-    type: "shorttext",
-    question: "Explain your previous answer in a 3000 word essay.",
-    id: "essay",
-    placeholder: "I like the color purple because..."
-  }
-]
+export type QuestionList = Question[];

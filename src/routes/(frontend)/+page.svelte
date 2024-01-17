@@ -4,18 +4,26 @@
 	import InputShort from '$lib/formElements/InputShort.svelte';
 	import Radio from '$lib/formElements/Radio.svelte';
 	import Checkbox from '$lib/formElements/Checkbox.svelte';
-	import { questions } from '$lib/questions';
+	import localStore from '$lib/localStore';
+	import type { Writable } from 'svelte/store';
+	import type { QuestionList } from '$lib/questions';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 
 	let answers: Record<string, any> = {};
 
-	questions.forEach((question) => {
+	let questions: Writable<QuestionList> = localStore('questions', []);
+	$questions = data.questions;
+
+	$questions.forEach((question) => {
 		if ('default' in question) {
 			answers[question.id] = question.default;
 		}
 	});
 </script>
 
-{#each questions as question, i}
+{#each $questions as question, i}
 	{#if question.type == 'slider'}
 		<Slider step={question.step} bind:value={answers[question.id]} />
 	{/if}

@@ -3,7 +3,7 @@ import type { Writable } from 'svelte/store';
 import { writable, get } from 'svelte/store'
 
 /* localStorage backed store, from https://stackoverflow.com/a/68785061 */
-const storage = <T>(key: string, initValue: T): Writable<T> => {
+const localStore = <T>(key: string, initValue: T): Writable<T> => {
   const store = writable(initValue);
   if (!browser) return store;
 
@@ -29,4 +29,4 @@ const storage = <T>(key: string, initValue: T): Writable<T> => {
   return store;
 }
 
-export default storage
+export default localStore
