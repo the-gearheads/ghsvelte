@@ -7,7 +7,8 @@
 	import localStore from '$lib/localStore';
 	import type { Writable } from 'svelte/store';
 	import { questions, type QuestionList } from '$lib/data/questions';
-	import type Data from '$lib/data/data';
+	import type Data from '$lib/data/collectedData';
+	import InputNumber from '$lib/formElements/InputNumber.svelte';
 
 
 	let answers: Writable<Record<string, any>> = localStore('answers', {} as Record<string, any>);
@@ -18,6 +19,7 @@
 				if ('default' in question && !(question.id in $answers)) {
 					$answers[question.id] = question.default;
 				}
+				if (question.required === undefined) question.required = true;
 			});
 		}
 
@@ -37,15 +39,15 @@
 <form on:submit|preventDefault={formSubmitted}>
 	<div class="flex items-center">
 		<div class="w-full p-1">
-			<input class="input" type="text" bind:value={$savedData.event} placeholder="Event Name" />
+			<InputShort label="Event Name" bind:value={$savedData.event} required />
 		</div>
 		<div class="w-full p-1">
-			<input class="input" type="text" bind:value={$savedData.username} placeholder="Username (anything's fine)" />
+			<InputShort label="Username (anything's fine)" bind:value={$savedData.username} required />
 		</div>
 	</div>
 
 
-	<div class="flex items-center justify-center space-x-8">
+	<div class="flex items-center justify-center space-x-8 mb-1">
 		<div class="scale-75 p-1">
 			<Radio question="Color" options= {
 				[
@@ -59,16 +61,16 @@
 				{id: "1", text: "1"},
 				{id: "2", text: "2"},
 				{id: "3", text: "3"},
-			]} bind:selected={$headerInfo.position} horizontal={true}/>
+			]} bind:selected={$headerInfo.position} horizontal />
 		</div>
 	</div>
 
 	<div class="flex items-center">
 		<div class="p-1 w-full">
-			<input class="input" type="number" min=0 max=100 step=1 bind:value={$headerInfo.matchNum} placeholder="Match Number" />
+			<InputNumber label="Match Number" bind:value={$headerInfo.matchNum} min={0} max={9999} step={1} required />
 		</div>
 		<div class="p-1 w-full">
-			<input class="input" type="number" min=0 max=9999 step=1 bind:value={$headerInfo.teamNum} placeholder="Team Number" />
+			<InputNumber label="Team Number" bind:value={$headerInfo.teamNum} min={0} max={9999} step={1} required />
 		</div>
 	</div>
 
@@ -80,16 +82,16 @@
 			<Slider step={question.step} name={question.question} min={question.min} max={question.max} bind:value={$answers[question.id]} />
 		{/if}
 		{#if question.type == 'shorttext'}
-			<InputShort label={question.question} bind:value={$answers[question.id]} />
+			<InputShort label={question.question} bind:value={$answers[question.id]} required={question.required} />
 		{/if}
 		{#if question.type == 'longtext'}
-			<InputLong label={question.question} bind:value={$answers[question.id]} />
+			<InputLong label={question.question} bind:value={$answers[question.id]} required={question.required} />
 		{/if}
 		{#if question.type == 'radio'}
-			<Radio bind:selected={$answers[question.id]} question={question.question} options={question.options} />
+			<Radio bind:selected={$answers[question.id]} question={question.question} options={question.options} required={question.required}  />
 		{/if}
 		{#if question.type == 'checkbox'}
-			<Checkbox question={question.question} bind:selected={$answers[question.id]} options={question.options} />
+			<Checkbox question={question.question} bind:selected={$answers[question.id]} options={question.options} required={question.required} />
 		{/if}
 		<br>
 	{/each}

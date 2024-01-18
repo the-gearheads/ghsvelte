@@ -70,7 +70,7 @@ export const questions: QuestionList = [
     "default": "red"
   },
   {
-    type: "shorttext",
+    type: "longtext",
     question: "Explain your previous answer in a 3000 word essay.",
     id: "essay",
     placeholder: "I like the color purple because..."
