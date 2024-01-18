@@ -8,6 +8,9 @@ export default defineConfig({
 	plugins: [sveltekit(), purgeCss(), SvelteKitPWA({ registerType: 'autoUpdate', devOptions: { enabled: false }, kit: { includeVersionFile: true }})],
 	build: {
 		sourcemap: true,
+		rollupOptions: {
+			external: [],
+		}
 	},
 	css: {
 		devSourcemap: true,

@@ -6,6 +6,11 @@
   const modalStore = getModalStore();
 
   export let data: Uint8Array[] | undefined;
+
+  /* little hack to get rid of a warning because skeleton passes a prop we dont care abt */
+  export let parent: SvelteComponent | undefined = undefined;
+  parent = parent;
+
   let canvas: HTMLCanvasElement | undefined;
   let currentCode = 0;
   let maxCodes = 0;

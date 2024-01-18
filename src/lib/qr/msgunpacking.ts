@@ -4,8 +4,7 @@ import crc32 from "./crc32";
 import hex from "./hex";
 import type Data from "$lib/data/collectedData";
 // @ts-ignore
-import pkg from "lzma/src/lzma_worker"; /* this library is literally 11 years old */
-const { LZMA } = pkg;
+import lzma from "lzma-web/dist/lzma_worker"; /* this library is literally 11 years old */
 
 export class MsgDecoder {
   public numSegments: number = -1;
@@ -89,7 +88,7 @@ export class MsgDecoder {
     console.log(encoded.length);
     console.log(encoded);
     // @ts-ignore
-    encoded = LZMA.decompress(encoded);
+    encoded = lzma.LZMA.decompress(encoded);
     console.log("POST DECOMPRESSION");
     console.log(encoded.length);
     console.log(encoded);

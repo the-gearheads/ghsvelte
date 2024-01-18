@@ -1,0 +1,12 @@
+diff --git a/node_modules/lzma/src/lzma_worker.js b/node_modules/lzma/src/lzma_worker.js
+index d8acf43..686feb6 100644
+--- a/node_modules/lzma/src/lzma_worker.js
++++ b/node_modules/lzma/src/lzma_worker.js
+@@ -2665,4 +2665,5 @@ var LZMA = (function () {
+ }());
+ 
+ /// This is used by browsers that do not support web workers (and possibly Node.js).
+-this.LZMA = this.LZMA_WORKER = LZMA;
++// this.LZMA = this.LZMA_WORKER = LZMA;
++module.exports = LZMA;
+\ No newline at end of file
