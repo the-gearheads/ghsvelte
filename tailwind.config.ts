@@ -23,7 +23,7 @@ const config = {
 		// 4. Append the Skeleton plugin (after other plugins)
 		forms,
     skeleton({
-      themes: { preset: [ "crimson" ] }
+      themes: { preset: ["crimson"] }
     })
 	]
 } satisfies Config;

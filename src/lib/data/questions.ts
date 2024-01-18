@@ -1,6 +1,6 @@
 type QuestionTypes = "radio" | "longtext"  | "shorttext" | "checkbox" | "slider";
 
-interface BaseQuestion {
+export interface BaseQuestion {
   question: string,
   id: string,
   type: QuestionTypes,
@@ -14,29 +14,29 @@ interface Group {
     text: string
 }
 
-interface RadioQuestion extends BaseQuestion {
+export interface RadioQuestion extends BaseQuestion {
   type: "radio",
   options: Group[],
   default?: string,
 }
 
-interface CheckboxQuestion extends BaseQuestion {
+export interface CheckboxQuestion extends BaseQuestion {
   type: "checkbox",
   options: Group[],
   default?: string[],
 }
 
-interface LongTextQuestion extends BaseQuestion {
+export interface LongTextQuestion extends BaseQuestion {
   type: "longtext",
   placeholder?: string,
 }
 
-interface ShortTextQuestion extends BaseQuestion {
+export interface ShortTextQuestion extends BaseQuestion {
   type: "shorttext",
   placeholder?: string,
 }
 
-interface SliderQuestion extends BaseQuestion {
+export interface SliderQuestion extends BaseQuestion {
   type: "slider",
   min: number,
   max: number,
@@ -94,3 +94,16 @@ export const questions: QuestionList = [
     "default": 5
   }
 ]
+
+export default function idToQuestion(id: string): Question {
+  const question = questions.find(q => q.id === id);
+  if (question === undefined) {
+    console.warn(`Could not find question with id ${id}`);
+    return {
+      question: "[ID Not Found]",
+      id: "error",
+      type: "shorttext",
+    }
+  }
+  return question;
+}

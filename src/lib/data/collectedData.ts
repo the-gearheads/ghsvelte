@@ -2,7 +2,7 @@ import type { Writable } from "svelte/store";
 import localStore from "$lib/localStore";
 
 type Id = string;
-type Answer = string | string[] | number;
+export type Answer = string | string[] | number;
 /* Keys gotta be short since they're in the QR code */
 
 export interface MatchData {

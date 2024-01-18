@@ -43,7 +43,7 @@
     <canvas class="" bind:this={canvas} width="724" height="724"></canvas>
   </div>
 
-  <footer class="modal-footer flex justify-end items-center space-x-2'">
+  <footer class="modal-footer flex justify-end items-center space-x-1">
     {#if maxCodes > 1}
       <span class="text-m">Make sure to scan all the QR codes!</span>
       <span class="text-lg whitespace-nowrap px-3">{currentCode + 1} / {maxCodes}</span>
