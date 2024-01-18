@@ -1,7 +1,7 @@
 <script lang="ts">
   import { encodeAndSegment } from '$lib/qr/msgpacking'
   import QrCodeViewer from '$lib/qr/QRCodeViewer.svelte';
-  import type Data from '$lib/data/data';
+  import type Data from '$lib/data/collectedData';
 
   let highScore = 0;
   let lowScore = 0;

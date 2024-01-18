@@ -1,7 +1,7 @@
 <script lang="ts">
   import "../../app.pcss";
   import { page } from "$app/stores"
-  import { AppBar, Toast } from "@skeletonlabs/skeleton"
+  import { AppBar, Modal, Toast } from "@skeletonlabs/skeleton"
   import { LightSwitch } from '@skeletonlabs/skeleton';
   
   interface Tab {
@@ -46,10 +46,11 @@
   </svelte:fragment>
 </AppBar>
 
+<Modal />
 <Toast position="tr" />
 
 <!-- Slot is where actual page is rendered  -->
-<div class="container mx-auto">
+<div class="container m-auto px-2 pb-2">
   <slot />
 </div>
 

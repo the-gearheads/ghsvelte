@@ -1,5 +1,10 @@
 <script lang="ts">
+	import { Modal, getModalStore } from '@skeletonlabs/skeleton';
   import QRCode from 'qrcode'
+	import type { SvelteComponent } from 'svelte';
+
+  const modalStore = getModalStore();
+
   export let data: Uint8Array[] | undefined;
   let canvas: HTMLCanvasElement | undefined;
   let currentCode = 0;
@@ -28,21 +33,32 @@
     display: block;
   }
 </style>
+<div class="card flex flex-col p-4 w-modal-slim shadow-xl space-y-4">
+  <div class="flex justify-center">
+    <canvas class="" bind:this={canvas} width="724" height="724"></canvas>
+  </div>
 
-<canvas bind:this={canvas} width="724" height="724"></canvas>
-<br>
-
-{#if maxCodes > 1}
-  <button on:click={()=>{
-    currentCode = (currentCode + 1) % maxCodes;
-  }}>
-    Next
-  </button>
-  <button on:click={()=>{
-      currentCode = (currentCode - 1 + maxCodes) % maxCodes;
-  }}>
-    Prev
-  </button>
-
-  <span>{currentCode + 1} / {maxCodes}</span>
-{/if}
+  <footer class="modal-footer flex justify-end items-center space-x-2'">
+    {#if maxCodes > 1}
+      <span class="text-m">Make sure to scan all the QR codes!</span>
+      <span class="text-lg whitespace-nowrap px-3">{currentCode + 1} / {maxCodes}</span>
+      <button class="btn variant-filled-primary variant-ghost-surface" on:click={()=>{
+          currentCode = (currentCode - 1 + maxCodes) % maxCodes;
+      }}>
+        Prev
+      </button>
+      <button class="btn variant-filled-primary variant-filled" on:click={()=>{
+        currentCode = (currentCode + 1) % maxCodes;
+      }}>
+        Next
+      </button>
+    
+    {:else}
+      <button class="btn variant-filled-primary variant-filled" on:click={()=>{
+        modalStore.close();
+      }}>
+        Close
+      </button>
+    {/if}
+    </footer>
+</div>

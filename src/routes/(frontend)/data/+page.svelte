@@ -1,7 +1,8 @@
 HERES ALL THE DATA YOU GOT
 
-<script>
+<script lang="ts">
   import { formDataStore } from "$lib/data/collectedData";
+	import QrCodeModalOpener from "$lib/qr/QRCodeModalOpener.svelte";
 	import QrCodeViewer from "$lib/qr/QRCodeViewer.svelte";
 	import { encodeAndSegment } from "$lib/qr/msgpacking";
 
@@ -10,4 +11,4 @@ HERES ALL THE DATA YOU GOT
 
 <p>{JSON.stringify($formDataStore)}</p>
 
-<QrCodeViewer {data} />
+<QrCodeModalOpener {data} />
