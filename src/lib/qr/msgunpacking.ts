@@ -3,6 +3,9 @@ import { SEGMENT_SIZE, HEADER_LENGTH, CRC_LENGTH } from "./msgconsts";
 import crc32 from "./crc32";
 import hex from "./hex";
 import type Data from "$lib/data/collectedData";
+// @ts-ignore
+import pkg from "lzma/src/lzma_worker"; /* this library is literally 11 years old */
+const { LZMA } = pkg;
 
 export class MsgDecoder {
   public numSegments: number = -1;
@@ -73,7 +76,7 @@ export class MsgDecoder {
     }
     const segments = this.segments as Uint8Array[];
 
-    const encoded = new Uint8Array(segments.reduce((acc, segment) => acc + segment.length, 0));
+    let encoded = new Uint8Array(segments.reduce((acc, segment) => acc + segment.length, 0));
     console.log(encoded.length)
     let offset = 0;
     for (const segment of segments) {
@@ -81,6 +84,15 @@ export class MsgDecoder {
       console.log(offset);
       offset += segment.length;
     }
+
+    console.log("PRE DECOMPRESSION");
+    console.log(encoded.length);
+    console.log(encoded);
+    // @ts-ignore
+    encoded = LZMA.decompress(encoded);
+    console.log("POST DECOMPRESSION");
+    console.log(encoded.length);
+    console.log(encoded);
 
     const decoded = decode(encoded);
     return decoded as Data;

@@ -45,6 +45,7 @@
 	"type": "module",
 	"dependencies": {
 		"@msgpack/msgpack": "^3.0.0-beta2",
+		"lzma": "^2.3.2",
 		"qrcode": "^1.5.3"
 	}
 }

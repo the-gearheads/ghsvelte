@@ -53,8 +53,8 @@ describe("QR Message Packing", () => {
       decoder.ingestQr(encoded[i]);
     }
 
-    expect(decoder.numSegments).toBe(15);
-    expect(decoder.numSegmentsScanned).toBe(15);
+    expect(decoder.numSegments).toBe(encoded.length);
+    expect(decoder.numSegmentsScanned).toBe(encoded.length);
     expect(decoder.allSegmentsScanned()).toBe(true);
 
     const decoded = decoder.assembleAndDecode();

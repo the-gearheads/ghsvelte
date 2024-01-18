@@ -2,12 +2,22 @@ import { encode } from "@msgpack/msgpack";
 import { QR_CODE_MAX_DATA, SEGMENT_SIZE, HEADER_LENGTH, CRC_LENGTH } from "./msgconsts";
 import crc32 from "./crc32";
 import hex from "./hex";
+// @ts-ignore
+import pkg from "lzma/src/lzma_worker"; /* no ts imports and this library is literally 11 years old */
+const { LZMA } = pkg;
 import type Data from "$lib/data/collectedData";
 
 export function encodeAndSegment(data: Data) {
-  const encoded = encode(data);
+  let encoded = encode(data);
+  console.log("PRE COMPRESSION");
+  console.log(encoded.length, SEGMENT_SIZE);
+  console.log(encoded);
+
+  // @ts-ignore
+  encoded = LZMA.compress(encoded, 9);
 
   // first byte is amount of codes, second byte is current code number, length of actual data (32bit), then segment things up if encoded length > 1538-2, then a crc32 at the end
+  console.log("POST COMPRESSION");
   console.log(encoded.length, SEGMENT_SIZE);
   console.log(encoded);
   const segments = Math.ceil(encoded.length / SEGMENT_SIZE);
@@ -36,3 +46,4 @@ export function encodeAndSegment(data: Data) {
 
   return out;
 }
+
