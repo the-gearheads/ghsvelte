@@ -1,19 +1,35 @@
+import type { Writable } from "svelte/store";
+import localStore from "$lib/localStore";
+
 type Id = string;
 type Answer = string | string[] | number;
 /* Keys gotta be short since they're in the QR code */
-export default interface Data {
-  event: string;
-  username: string;
-  matchData: {
-    /* match number */
-    matchN: number;
-    /* team number */
-    teamN: number;
-    /* alliance color */
-    alliance: "red" | "blue";
-    /* position on alliance */
-    pos: number;
-    /* anwers */
-    ans: Record<Id, Answer>;
-  }
+
+export interface MatchData {
+  /* match number */
+  m: number;
+  /* team number */
+  t: number;
+  /* alliance color */
+  c: "red" | "blue";
+  /* position on alliance */
+  p: number;
+  /* anwers */
+  a: Record<Id, Answer>;
 }
+
+export default interface Data {
+  /* event code */
+  ev: string;
+  /* username */
+  un: string;
+  /* match data */
+  md: MatchData[];
+}
+
+
+export let formDataStore: Writable<Data> = localStore('formData', {
+  ev: "",
+  un: "",
+  md: [],
+});

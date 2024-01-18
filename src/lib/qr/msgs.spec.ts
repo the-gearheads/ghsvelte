@@ -1,4 +1,4 @@
-import type Data from "./data";
+import type Data from "../data/collectedData";
 import { encodeAndSegment } from "./msgpacking"
 import { MsgDecoder } from "./msgunpacking"
 

@@ -9,10 +9,9 @@
 	import { questions, type QuestionList } from '$lib/data/questions';
 	import type Data from '$lib/data/collectedData';
 	import InputNumber from '$lib/formElements/InputNumber.svelte';
-
+	import { type MatchData, formDataStore } from '$lib/data/collectedData';
 
 	let answers: Writable<Record<string, any>> = localStore('answers', {} as Record<string, any>);
-	let savedData: Writable<Data> = localStore('formData', {} as Data);
 	
 		function setDefaults(questions: QuestionList) {
 			questions.forEach((question) => {
@@ -30,6 +29,15 @@
 
 	function formSubmitted() {
 		// clear and reset the form
+		var matchData: MatchData = {
+			m: $headerInfo.matchNum,
+			t: $headerInfo.teamNum as number,
+			c: $headerInfo.color as "red"|"blue",
+			p: Number($headerInfo.position),
+			a: $answers
+		}
+
+		$formDataStore.md = [...$formDataStore.md, matchData] // svelte cant handle not doing this
 		answers.set({});
 		$headerInfo.matchNum++;
 		setDefaults(questions);
@@ -39,10 +47,10 @@
 <form on:submit|preventDefault={formSubmitted}>
 	<div class="flex items-center">
 		<div class="w-full p-1">
-			<InputShort label="Event Name" bind:value={$savedData.event} required />
+			<InputShort label="Event Name" bind:value={$formDataStore.ev} required />
 		</div>
 		<div class="w-full p-1">
-			<InputShort label="Username (anything's fine)" bind:value={$savedData.username} required />
+			<InputShort label="Username (anything's fine)" bind:value={$formDataStore.un} required />
 		</div>
 	</div>
 
@@ -54,20 +62,20 @@
 					{id: "red", text: "Red"},
 					{id: "blue", text: "Blue"},
 				]
-			} bind:selected={$headerInfo.color}/>
+			} bind:selected={$headerInfo.color} required />
 		</div>
 		<div class="p-1">
 			<Radio question="Position" options={[
 				{id: "1", text: "1"},
 				{id: "2", text: "2"},
 				{id: "3", text: "3"},
-			]} bind:selected={$headerInfo.position} horizontal />
+			]} bind:selected={$headerInfo.position} horizontal required />
 		</div>
 	</div>
 
 	<div class="flex items-center">
 		<div class="p-1 w-full">
-			<InputNumber label="Match Number" bind:value={$headerInfo.matchNum} min={0} max={9999} step={1} required />
+			<InputNumber label="Match Number" bind:value={$headerInfo.matchNum} min={0} max={500} step={1} required />
 		</div>
 		<div class="p-1 w-full">
 			<InputNumber label="Team Number" bind:value={$headerInfo.teamNum} min={0} max={9999} step={1} required />
