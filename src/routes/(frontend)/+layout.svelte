@@ -18,10 +18,6 @@
     href: '/data',
     title: 'Data',
   },
-  {
-    href: '/qr',
-    title: 'QR Codes',
-  },
 ];
 
   $: activeUrl = $page.url.pathname
