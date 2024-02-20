@@ -10,17 +10,18 @@
 	import type Data from '$lib/data/collectedData';
 	import InputNumber from '$lib/formElements/InputNumber.svelte';
 	import { type MatchData, formDataStore } from '$lib/data/collectedData';
+	import { generateID } from '$lib/generateID';
 
 	let answers: Writable<Record<string, any>> = localStore('answers', {} as Record<string, any>);
 	
-		function setDefaults(questions: QuestionList) {
-			questions.forEach((question) => {
-				if ('default' in question && !(question.id in $answers)) {
-					$answers[question.id] = question.default;
-				}
-				if (question.required === undefined) question.required = true;
-			});
-		}
+	function setDefaults(questions: QuestionList) {
+		questions.forEach((question) => {
+			if ('default' in question && !(question.id in $answers)) {
+				$answers[question.id] = question.default;
+			}
+			if (question.required === undefined) question.required = true;
+		});
+	}
 
 	$: setDefaults(questions);
 
@@ -34,7 +35,9 @@
 			t: $headerInfo.teamNum as number,
 			c: $headerInfo.color as "red"|"blue",
 			p: Number($headerInfo.position),
-			a: $answers
+			a: $answers,
+			s: false,
+			i: generateID(),
 		}
 
 		$formDataStore.md = [...$formDataStore.md, matchData] // svelte cant handle not doing this

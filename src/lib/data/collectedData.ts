@@ -16,6 +16,10 @@ export interface MatchData {
   p: number;
   /* anwers */
   a: Record<Id, Answer>;
+  /* was it submitted to the server */
+  s: boolean;
+  /* id */
+  i: string;
 }
 
 export default interface Data {

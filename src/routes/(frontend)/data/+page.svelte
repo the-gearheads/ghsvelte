@@ -68,6 +68,7 @@ HERES ALL THE DATA YOU GOT
 			<div class="flex w-full justify-items-stretch">
 				<span class="text-xl w-full">Team {match.t}</span>
 				<div class="w-full space-x-2 text-right">
+					<span class="font-bold text-s ">{#if !match.s}Not submitted to server!{/if}</span>
 					<span class="font-bold text-xs ">#{match.m}</span>
 					<!-- svelte-ignore a11y-invalid-attribute -->
 					<!-- svelte-ignore a11y-missing-content -->
