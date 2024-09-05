@@ -26,14 +26,14 @@
 	$: setDefaults(questions);
 
 	/* need it to be saved before submit but must be stored separately */
-	let headerInfo: Writable<{color: string, position: string, matchNum: number, teamNum?: number}> = localStore('headerInfo', {color: "red", matchNum: 0, position: "1"});
+	let headerInfo: Writable<{color: "red"|"blue", position: string, matchNum: number, teamNum?: number}> = localStore('headerInfo', {color: "red", matchNum: 0, position: "1"});
 
 	function formSubmitted() {
 		// clear and reset the form
 		var matchData: MatchData = {
 			m: $headerInfo.matchNum,
 			t: $headerInfo.teamNum as number,
-			c: $headerInfo.color as "red"|"blue",
+			c: $headerInfo.color,
 			p: Number($headerInfo.position),
 			a: $answers,
 			s: false,
