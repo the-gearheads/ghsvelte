@@ -8,17 +8,19 @@ import type QRDataType from "$lib/data/collectedData";
 
 export function encodeAndSegment(data: QRDataType) {
   let encoded = encode(data);
-  console.log("PRE COMPRESSION");
-  console.log(encoded.length, SEGMENT_SIZE);
+  console.log("[msgpacking] DATA PRE COMPRESSION");
+  console.log(`orig length: ${encoded.length}, segment size: ${SEGMENT_SIZE}`);
   console.log(encoded);
 
+  console.log("[msgpacking] LZMA funcs:")
   console.log(lzma);
+
   // @ts-ignore
   encoded = lzma.compress(encoded, 9);
 
   // first byte is amount of codes, second byte is current code number, length of actual data (32bit), then segment things up if encoded length > 1538-2, then a crc32 at the end
-  console.log("POST COMPRESSION");
-  console.log(encoded.length, SEGMENT_SIZE);
+  console.log("[msgpacking] POST COMPRESSION");
+  console.log(`new length: ${encoded.length}, segment size: ${SEGMENT_SIZE}`);
   console.log(encoded);
   const segments = Math.ceil(encoded.length / SEGMENT_SIZE);
 

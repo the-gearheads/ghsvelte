@@ -38,7 +38,7 @@ export class MsgDecoder {
     }
 
     const segmentLength = (data[2] << 24) | (data[3] << 16) | (data[4] << 8) | data[5];
-    console.log("segment length is " + segmentLength)
+    console.log("[msgunpacking] segment length is " + segmentLength)
     if (segmentLength > SEGMENT_SIZE) {
       if(this.statusCallback) this.statusCallback(`Segment length implausible; ${segmentLength} > ${SEGMENT_SIZE}`);
       return false;
@@ -84,13 +84,13 @@ export class MsgDecoder {
       offset += segment.length;
     }
 
-    console.log("PRE DECOMPRESSION");
-    console.log(encoded.length);
+    console.log("[msgunpacking] PRE DECOMPRESSION");
+    console.log(`orig length: ${encoded.length}`);
     console.log(encoded);
     // @ts-ignore
     encoded = lzma.LZMA.decompress(encoded);
-    console.log("POST DECOMPRESSION");
-    console.log(encoded.length);
+    console.log("[msgunpacking] POST DECOMPRESSION");
+    console.log(`new length: ${encoded.length}`);
     console.log(encoded);
 
     const decoded = decode(encoded);
