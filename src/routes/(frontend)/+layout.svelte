@@ -18,6 +18,10 @@
     href: '/data',
     title: 'Data',
   },
+  {
+    href: '/debug',
+    title: 'Debug',
+  }
 ];
 
   $: activeUrl = $page.url.pathname

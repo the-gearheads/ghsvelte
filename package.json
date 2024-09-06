@@ -50,6 +50,7 @@
 		"@msgpack/msgpack": "^3.0.0-beta2",
 		"fontawesome-free": "^1.0.4",
 		"lzma": "^2.3.2",
+		"qr-scanner": "github:criteo-forks/qr-scanner#952ce7e4414ea18fbf658b7eae3adcf838becd39",
 		"qrcode": "^1.5.3"
 	}
 }

@@ -18,8 +18,6 @@ export interface MatchData {
   a: Record<Id, Answer>;
   /* was it submitted to the server */
   s: boolean;
-  /* id */
-  i: string;
 }
 
 export default interface Data {
@@ -28,12 +26,12 @@ export default interface Data {
   /* username */
   un: string;
   /* match data */
-  md: MatchData[];
+  md: {[key: string]: MatchData};
 }
 
 
 export let formDataStore: Writable<Data> = localStore('formData', {
   ev: "",
   un: "",
-  md: [],
+  md: {},
 });

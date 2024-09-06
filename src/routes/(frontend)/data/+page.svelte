@@ -43,9 +43,10 @@
 			response: (r: boolean) => {
 				if (r) {
 					// kinda a little sketch, might wanna do some sanity checks
-					const i = Number(elem.dataset.matchindex);
-					const match = $formDataStore.md[i];
-					$formDataStore.md = [...$formDataStore.md.slice(0, i), ...$formDataStore.md.slice(i + 1) ];
+					const id = String(elem.dataset.matchid);
+					const match = $formDataStore.md[id];
+					delete $formDataStore.md[id];
+					$formDataStore = $formDataStore;
 					toastStore.trigger({
 						background: 'variant-filled-primary',
 						message: "Entry for match " + match.m + " deleted."
@@ -63,7 +64,8 @@ HERES ALL THE DATA YOU GOT
 <!-- <p>{JSON.stringify($formDataStore)}</p> -->
 
 <div class="flex flex-col space-y-3">
-	{#each $formDataStore.md as match, i}
+	{#each Object.keys($formDataStore.md) as matchId, i}
+	{@const match = $formDataStore.md[matchId]}
 		<div class="card p-4 variant-filled-surface space-y-2">
 			<div class="flex w-full justify-items-stretch">
 				<span class="text-xl w-full">Team {match.t}</span>
@@ -72,7 +74,7 @@ HERES ALL THE DATA YOU GOT
 					<span class="font-bold text-xs ">#{match.m}</span>
 					<!-- svelte-ignore a11y-invalid-attribute -->
 					<!-- svelte-ignore a11y-missing-content -->
-					<a href="#" data-matchIndex={i} class="fa-trash-alt text-xs fa" on:click|preventDefault={removeEntry}></a>
+					<a href="#" data-matchid={matchId} class="fa-trash-alt text-xs fa" on:click|preventDefault={removeEntry}></a>
 				</div>
 			</div>
 			<hr>
