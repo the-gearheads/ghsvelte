@@ -59,6 +59,6 @@
   <ReloadPrompt />
 {/await}
 
-{#await import ('$lib/AutoSubmit.svelte') then { default: AutoSubmit }}
+<!-- {#await import ('$lib/AutoSubmit.svelte') then { default: AutoSubmit }}
   <AutoSubmit />
-{/await}
+{/await} -->

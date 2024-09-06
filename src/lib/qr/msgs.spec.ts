@@ -1,4 +1,4 @@
-import type Data from "../data/collectedData";
+import type { QRDataType } from "../data/collectedData";
 import { encodeAndSegment } from "./msgpacking"
 import { MsgDecoder } from "./msgunpacking"
 
@@ -12,7 +12,7 @@ const randomLongString = function () {
 
 describe("QR Message Packing", () => {
   it("Short encode/decode", () => {
-    const encoded = encodeAndSegment({"stTest": "This is a test."} as unknown as Data)
+    const encoded = encodeAndSegment({"stTest": "This is a test."} as unknown as QRDataType)
     expect(encoded.length).toBe(1);
 
     
@@ -39,7 +39,7 @@ describe("QR Message Packing", () => {
 
 
   it("Long encode/decode", () => {
-    const encoded = encodeAndSegment({"stTest": randomLongString} as unknown as Data)
+    const encoded = encodeAndSegment({"stTest": randomLongString} as unknown as QRDataType)
 
     const decoder = new MsgDecoder();
     decoder.registerStatusCallback((str: string) => {
@@ -63,7 +63,7 @@ describe("QR Message Packing", () => {
   })
 
   it("Short CRC fail", () => {
-    const encoded = encodeAndSegment({"stTest": "This is a test."} as unknown as Data)
+    const encoded = encodeAndSegment({"stTest": "This is a test."} as unknown as QRDataType)
 
     const decoder = new MsgDecoder();
     decoder.registerStatusCallback((str: string) => {

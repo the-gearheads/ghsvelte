@@ -2,11 +2,11 @@ import { encode } from "@msgpack/msgpack";
 import { QR_CODE_MAX_DATA, SEGMENT_SIZE, HEADER_LENGTH, CRC_LENGTH } from "./msgconsts";
 import crc32 from "./crc32";
 import hex from "./hex";
+import type { QRDataType } from "$lib/data/collectedData";
 // @ts-ignore
 import lzma from "lzma/src/lzma_worker.js"; /* no ts imports and this library is literally 11 years old */
-import type QRDataType from "$lib/data/collectedData";
 
-export function encodeAndSegment(data: QRDataType) {
+export function encodeAndSegment(data: QRDataType): Uint8Array[] {
   let encoded = encode(data);
   console.log("[msgpacking] DATA PRE COMPRESSION");
   console.log(`orig length: ${encoded.length}, segment size: ${SEGMENT_SIZE}`);

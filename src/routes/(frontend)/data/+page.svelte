@@ -7,7 +7,7 @@
 	import 'fontawesome-free/css/fontawesome.css';
 	import 'fontawesome-free/css/solid.css';
 	import { getModalStore, getToastStore } from "@skeletonlabs/skeleton";
-
+	import type { QRDataType } from "$lib/data/collectedData";
 	const modalStore = getModalStore();
 	const toastStore = getToastStore();
 
