@@ -4,9 +4,9 @@ import crc32 from "./crc32";
 import hex from "./hex";
 // @ts-ignore
 import lzma from "lzma/src/lzma_worker.js"; /* no ts imports and this library is literally 11 years old */
-import type Data from "$lib/data/collectedData";
+import type QRDataType from "$lib/data/collectedData";
 
-export function encodeAndSegment(data: Data) {
+export function encodeAndSegment(data: QRDataType) {
   let encoded = encode(data);
   console.log("PRE COMPRESSION");
   console.log(encoded.length, SEGMENT_SIZE);

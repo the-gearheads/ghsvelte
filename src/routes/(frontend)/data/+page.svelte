@@ -12,7 +12,7 @@
 	const toastStore = getToastStore();
 
 	let data: Uint8Array[] | undefined = undefined;
-  $: data = encodeAndSegment($formDataStore);
+  $: data = encodeAndSegment($formDataStore.md);
 
 	function stringAnswer(answer: Answer, question: Question) {
 		if (question.type == "radio" && typeof answer === "string") {

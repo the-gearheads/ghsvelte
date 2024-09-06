@@ -2,9 +2,9 @@ import { decode } from "@msgpack/msgpack";
 import { SEGMENT_SIZE, HEADER_LENGTH, CRC_LENGTH } from "./msgconsts";
 import crc32 from "./crc32";
 import hex from "./hex";
-import type Data from "$lib/data/collectedData";
 // @ts-ignore
 import lzma from "lzma-web/dist/lzma_worker"; /* this library is literally 11 years old */
+import type { QRDataType } from "$lib/data/collectedData";
 
 export class MsgDecoder {
   public numSegments: number = -1;
@@ -68,7 +68,7 @@ export class MsgDecoder {
     return this.numSegmentsScanned === this.numSegments;
   }
 
-  public assembleAndDecode(): Data | undefined {
+  public assembleAndDecode(): QRDataType | undefined {
     if (!this.allSegmentsScanned()) {
       if(this.statusCallback) this.statusCallback(`Not all segments scanned; ${this.numSegmentsScanned} !== ${this.numSegments}`);
       return undefined;
@@ -94,6 +94,6 @@ export class MsgDecoder {
     console.log(encoded);
 
     const decoded = decode(encoded);
-    return decoded as Data;
+    return decoded as QRDataType;
   }
 }

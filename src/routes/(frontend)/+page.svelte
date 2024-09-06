@@ -58,10 +58,10 @@
 <form on:submit|preventDefault={formSubmitted}>
 	<div class="flex items-center">
 		<div class="w-full p-1">
-			<InputShort label="Event Name" bind:value={$formDataStore.ev} required />
+			<InputShort label="Event Name" bind:value={$formDataStore.eventCode} required />
 		</div>
 		<div class="w-full p-1">
-			<InputShort label="Username (anything's fine)" bind:value={$formDataStore.un} required />
+			<InputShort label="Username (anything's fine)" bind:value={$formDataStore.username} required />
 		</div>
 	</div>
 
