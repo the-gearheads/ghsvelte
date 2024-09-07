@@ -1,5 +1,6 @@
 <script lang="ts">
   import { browser } from '$app/environment';
+	import QrCodeScannerModalOpener from '$lib/qr/QRCodeScannerModalOpener.svelte';
   function clearLocalStorage() {
     localStorage.clear();
     localStorageEntries = [];
@@ -21,3 +22,6 @@
 {#each localStorageEntries as [key, value]}
   <p><b>{key}:</b> {value}</p>
 {/each}
+
+
+<QrCodeScannerModalOpener />
