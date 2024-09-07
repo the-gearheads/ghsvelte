@@ -10,6 +10,7 @@
   export let parent: SvelteComponent | undefined = undefined;
   parent = parent;
   let videoElem: HTMLVideoElement | undefined;
+  let overlay: HTMLDivElement | undefined;
   let qrScanner: QrScanner | undefined;
   let msgDecoder = new MsgDecoder();
 
@@ -32,12 +33,23 @@
     }
   }
 
-  $: if(videoElem) {
+  $: if(videoElem && overlay) {
     qrScanner = new QrScanner(
       videoElem,
       handleQRResult,
-      { returnDetailedScanResult: true },
-    );
+      { returnDetailedScanResult: true,
+        calculateScanRegion(video) {
+        return {
+          x: 0,
+          y: 0,
+          width: video.width,
+          height: video.height,
+        };
+      },
+      overlay: overlay,
+      highlightScanRegion: true,
+      highlightCodeOutline: true,
+    });
 
     console.log("we made a code scanner wooo")
 
@@ -65,6 +77,7 @@
     <!-- <canvas class="" bind:this={canvas} width="724" height="724"></canvas> -->
     <!-- svelte-ignore a11y-media-has-caption -->
     <video bind:this={videoElem}></video>
+    <div bind:this={overlay}></div>
   </div>
 
   <footer class="modal-footer flex justify-end items-center space-x-1">
