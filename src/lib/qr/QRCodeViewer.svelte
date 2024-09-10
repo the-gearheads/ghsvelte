@@ -2,6 +2,7 @@
 	import { Modal, getModalStore } from '@skeletonlabs/skeleton';
   import QRCode from 'qrcode'
 	import type { SvelteComponent } from 'svelte';
+	import { QR_CODE_ERROR_CORRECTION, QR_CODE_VERSION } from './msgconsts';
 
   const modalStore = getModalStore();
 
@@ -18,7 +19,7 @@
 
   $: if(canvas) {
       if (data && data.length != 0) {
-        QRCode.toCanvas(canvas, [{data: data[currentCode], mode: 'byte'}], {errorCorrectionLevel: 'M', version: 12}, function (error) {
+        QRCode.toCanvas(canvas, [{data: data[currentCode], mode: 'byte'}], {errorCorrectionLevel: QR_CODE_ERROR_CORRECTION, version: QR_CODE_VERSION}, function (error) {
           if (error) console.error(error)
         })
       } else {

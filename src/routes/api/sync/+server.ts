@@ -5,6 +5,7 @@ export async function POST(event) {
       const body = await event.request.json();
       if (Object.keys(body).length !== 0) {
         // do something with the data
+
         return new Response(JSON.stringify(body));
       }
       return new Response(JSON.stringify(body));
