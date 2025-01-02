@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run, preventDefault } from 'svelte/legacy';
+
   import { formDataStore, type Answer } from "$lib/data/collectedData";
 	import QrCodeModalOpener from "$lib/qr/QRCodeModalOpener.svelte";
 	import { encodeAndSegment } from "$lib/qr/msgpacking";
@@ -11,8 +13,10 @@
 	const modalStore = getModalStore();
 	const toastStore = getToastStore();
 
-	let data: Uint8Array[] | undefined = undefined;
-  $: data = encodeAndSegment($formDataStore.md);
+	let data: Uint8Array[] | undefined = $state(undefined);
+  run(() => {
+		data = encodeAndSegment($formDataStore.md);
+	});
 
 	function stringAnswer(answer: Answer, question: Question) {
 		if (question.type == "radio" && typeof answer === "string") {
@@ -72,9 +76,9 @@ HERES ALL THE DATA YOU GOT
 				<div class="w-full space-x-2 text-right">
 					<span class="font-bold text-s ">{#if !match.s}Not submitted to server!{/if}</span>
 					<span class="font-bold text-xs ">#{match.m}</span>
-					<!-- svelte-ignore a11y-invalid-attribute -->
-					<!-- svelte-ignore a11y-missing-content -->
-					<a href="#" data-matchid={matchId} class="fa-trash-alt text-xs fa" on:click|preventDefault={removeEntry}></a>
+					<!-- svelte-ignore a11y_invalid_attribute -->
+					<!-- svelte-ignore a11y_missing_content -->
+					<a href="#" data-matchid={matchId} class="fa-trash-alt text-xs fa" onclick={preventDefault(removeEntry)}></a>
 				</div>
 			</div>
 			<hr>

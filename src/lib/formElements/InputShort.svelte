@@ -1,8 +1,17 @@
 <script lang="ts">
-    export let label = "";
-    export let value = "";
-    export let placeholder = "";
-    export let required = false;
+    interface Props {
+        label?: string;
+        value?: string;
+        placeholder?: string;
+        required?: boolean;
+    }
+
+    let {
+        label = "",
+        value = $bindable(""),
+        placeholder = "",
+        required = false
+    }: Props = $props();
 </script>
 
 <label class="label space-y-2">

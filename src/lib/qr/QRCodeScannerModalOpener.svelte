@@ -14,4 +14,4 @@
   }
 </script>
 
-<button class="btn variant-filled-primary" on:click={show}>Open code scanner test</button>
+<button class="btn variant-filled-primary" onclick={show}>Open code scanner test</button>

@@ -1,9 +1,14 @@
 <script lang="ts">
   import { pwaInfo } from 'virtual:pwa-info'
   import { initializeStores } from '@skeletonlabs/skeleton';
+  interface Props {
+    children?: import('svelte').Snippet;
+  }
+
+  let { children }: Props = $props();
 
   initializeStores();
-  $: webManifest = pwaInfo ? pwaInfo.webManifest.linkTag : ''
+  let webManifest = $derived(pwaInfo ? pwaInfo.webManifest.linkTag : '')
 </script>
 
 <svelte:head>
@@ -11,5 +16,5 @@
 </svelte:head>
 
 <main>
-  <slot />
+  {@render children?.()}
 </main>

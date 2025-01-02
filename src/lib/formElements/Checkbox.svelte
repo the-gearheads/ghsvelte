@@ -1,13 +1,22 @@
 <script lang="ts">
-    export let options: Checkbox[];
-    export let question: string;
     interface Checkbox {
         id: string;
         text: string;
     }
 
-    export let selected: string[] = [];
-    export let required = false;
+    interface Props {
+        options: Checkbox[];
+        question: string;
+        selected?: string[];
+        required?: boolean;
+    }
+
+    let {
+        options,
+        question,
+        selected = $bindable([]),
+        required = false
+    }: Props = $props();
 </script>
 
 <label class="label">

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run, preventDefault } from 'svelte/legacy';
+
 	import InputLong from '$lib/formElements/InputLong.svelte';
 	import Slider from '$lib/formElements/Slider.svelte';
 	import InputShort from '$lib/formElements/InputShort.svelte';
@@ -29,7 +31,9 @@
 		});
 	}
 
-	$: setDefaults(questions);
+	run(() => {
+		setDefaults(questions);
+	});
 
 	/* need it to be saved before submit but must be stored separately */
 	type HeaderInfo = {color: "red"|"blue", position: string, matchNum: number, teamNum?: number};
@@ -55,7 +59,7 @@
 
 </script>
 
-<form on:submit|preventDefault={formSubmitted}>
+<form onsubmit={preventDefault(formSubmitted)}>
 	<div class="flex items-center">
 		<div class="w-full p-1">
 			<InputShort label="Event Name" bind:value={$formDataStore.eventCode} required />

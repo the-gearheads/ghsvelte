@@ -6,7 +6,7 @@
     localStorageEntries = [];
   }
 
-  let localStorageEntries = browser ? Object.entries(localStorage): [];
+  let localStorageEntries = $state(browser ? Object.entries(localStorage): []);
 
   function reloadLSView() {
     localStorageEntries = Object.entries(localStorage);
@@ -15,8 +15,8 @@
 
 <h1 class="text-2xl mb-4">Debug/testing menu</h1>
 
-<button class="btn variant-filled-primary" on:click={clearLocalStorage}>Clear localstorage</button>
-<button class="btn variant-filled-primary" on:click={reloadLSView}>Reload list</button>
+<button class="btn variant-filled-primary" onclick={clearLocalStorage}>Clear localstorage</button>
+<button class="btn variant-filled-primary" onclick={reloadLSView}>Reload list</button>
 <p>Localstorage contents:</p>
 
 {#each localStorageEntries as [key, value]}

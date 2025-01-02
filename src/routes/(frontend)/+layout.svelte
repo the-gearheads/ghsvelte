@@ -1,8 +1,15 @@
 <script lang="ts">
+  import { run } from 'svelte/legacy';
+
   import "../../app.pcss";
   import { page } from "$app/stores"
   import { AppBar, Modal, Toast } from "@skeletonlabs/skeleton"
   import { LightSwitch } from '@skeletonlabs/skeleton';
+  interface Props {
+    children?: import('svelte').Snippet;
+  }
+
+  let { children }: Props = $props();
   
   interface Tab {
       href: string;
@@ -24,8 +31,10 @@
   }
 ];
 
-  $: activeUrl = $page.url.pathname
-  $: console.log("active url updated " + activeUrl)
+  let activeUrl = $derived($page.url.pathname)
+  run(() => {
+    console.log("active url updated " + activeUrl)
+  });
   
 </script>
 
@@ -36,14 +45,18 @@
 </style>
 
 <AppBar class="mb-3 shadow">
-	<svelte:fragment slot="lead"><img class="object-contain h-10" alt="logo" src="/gearhead.png"></svelte:fragment>
-	<svelte:fragment slot="trail">
-    {#each tabs as tab,i}
-      <!-- yeah its a little cursed -->
-      <a href={tab.href} class:active={(activeUrl === '/' ? activeUrl : activeUrl.replace(/\/$/, '')) === tab.href}>{tab.title}</a>
-    {/each}
-    <LightSwitch />
-  </svelte:fragment>
+	{#snippet lead()}
+    <img class="object-contain h-10" alt="logo" src="/gearhead.png">
+  {/snippet}
+	{#snippet trail()}
+  
+      {#each tabs as tab,i}
+        <!-- yeah its a little cursed -->
+        <a href={tab.href} class:active={(activeUrl === '/' ? activeUrl : activeUrl.replace(/\/$/, '')) === tab.href}>{tab.title}</a>
+      {/each}
+      <LightSwitch />
+    
+  {/snippet}
 </AppBar>
 
 <Modal />
@@ -51,7 +64,7 @@
 
 <!-- Slot is where actual page is rendered  -->
 <div class="container m-auto px-2 pb-2">
-  <slot />
+  {@render children?.()}
 </div>
 
 <!-- Really just triggers the toast above -->

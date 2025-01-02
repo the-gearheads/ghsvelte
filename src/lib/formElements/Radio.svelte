@@ -1,15 +1,27 @@
 <script lang="ts">
-    // must be unique, maybe we could randomize this
-    export let groupName: string = "";
-    export let selected: string;
-    export let question: string;
-    export let horizontal = false;
-    export let required = false;
+    
     interface radio {
         id: string;
         text: string;
     }
-    export let options: radio[];
+    interface Props {
+        // must be unique, maybe we could randomize this
+        groupName?: string;
+        selected: string;
+        question: string;
+        horizontal?: boolean;
+        required?: boolean;
+        options: radio[];
+    }
+
+    let {
+        groupName = "",
+        selected = $bindable(),
+        question,
+        horizontal = false,
+        required = false,
+        options
+    }: Props = $props();
     
 </script>
 

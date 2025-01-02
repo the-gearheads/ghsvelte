@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { run } from 'svelte/legacy';
+
 	import { Modal, getModalStore } from '@skeletonlabs/skeleton';
   import QRCode from 'qrcode'
 	import type { SvelteComponent } from 'svelte';
@@ -6,29 +8,38 @@
 
   const modalStore = getModalStore();
 
-  export let data: Uint8Array[] | undefined;
 
-  /* little hack to get rid of a warning because skeleton passes a prop we dont care abt */
-  export let parent: SvelteComponent | undefined = undefined;
+  
+  interface Props {
+    data: Uint8Array[] | undefined;
+    /* little hack to get rid of a warning because skeleton passes a prop we dont care abt */
+    parent?: SvelteComponent | undefined;
+  }
+
+  let { data, parent = $bindable(undefined) }: Props = $props();
   parent = parent;
 
-  let canvas: HTMLCanvasElement | undefined;
-  let currentCode = 0;
-  let maxCodes = 0;
-  $: maxCodes = data?.length ? data.length : 0;
+  let canvas: HTMLCanvasElement | undefined = $state();
+  let currentCode = $state(0);
+  let maxCodes = $state(0);
+  run(() => {
+    maxCodes = data?.length ? data.length : 0;
+  });
 
-  $: if(canvas) {
-      if (data && data.length != 0) {
-        QRCode.toCanvas(canvas, [{data: data[currentCode], mode: 'byte'}], {errorCorrectionLevel: QR_CODE_ERROR_CORRECTION, version: QR_CODE_VERSION}, function (error) {
-          if (error) console.error(error)
-        })
-      } else {
-        let ctx = canvas.getContext('2d');
-        ctx?.clearRect(0, 0, canvas.width, canvas.height);
-        if(ctx) ctx.fillStyle = 'black';
-        ctx?.fillText('No data', 0, 0);
+  run(() => {
+    if(canvas) {
+        if (data && data.length != 0) {
+          QRCode.toCanvas(canvas, [{data: data[currentCode], mode: 'byte'}], {errorCorrectionLevel: QR_CODE_ERROR_CORRECTION, version: QR_CODE_VERSION}, function (error) {
+            if (error) console.error(error)
+          })
+        } else {
+          let ctx = canvas.getContext('2d');
+          ctx?.clearRect(0, 0, canvas.width, canvas.height);
+          if(ctx) ctx.fillStyle = 'black';
+          ctx?.fillText('No data', 0, 0);
+        }
       }
-    }
+  });
   
 </script>
 
@@ -48,19 +59,19 @@
     {#if maxCodes > 1}
       <span class="text-m">Make sure to scan all the QR codes!</span>
       <span class="text-lg whitespace-nowrap px-3">{currentCode + 1} / {maxCodes}</span>
-      <button class="btn variant-filled-primary variant-ghost-surface" on:click={()=>{
+      <button class="btn variant-filled-primary variant-ghost-surface" onclick={()=>{
           currentCode = (currentCode - 1 + maxCodes) % maxCodes;
       }}>
         Prev
       </button>
-      <button class="btn variant-filled-primary variant-filled" on:click={()=>{
+      <button class="btn variant-filled-primary variant-filled" onclick={()=>{
         currentCode = (currentCode + 1) % maxCodes;
       }}>
         Next
       </button>
     
     {:else}
-      <button class="btn variant-filled-primary variant-filled" on:click={()=>{
+      <button class="btn variant-filled-primary variant-filled" onclick={()=>{
         modalStore.close();
       }}>
         Close

@@ -3,7 +3,11 @@
 	import QrCodeViewer from "./QRCodeViewer.svelte";
 
   const modalStore = getModalStore();
-  export let data: Uint8Array[] | undefined = undefined;
+  interface Props {
+    data?: Uint8Array[] | undefined;
+  }
+
+  let { data = undefined }: Props = $props();
 
   function show() {
     modalStore.trigger({
@@ -16,4 +20,4 @@
   }
 </script>
 
-<button class="btn variant-filled-primary" on:click={show}>Show QR</button>
+<button class="btn variant-filled-primary" onclick={show}>Show QR</button>

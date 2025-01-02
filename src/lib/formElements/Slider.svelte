@@ -1,11 +1,21 @@
 <script lang="ts">
 	import { RangeSlider } from "@skeletonlabs/skeleton"
     
-    export let step: number|undefined = undefined;
-    export let name = "";
-    export let value = 0;
-    export let min: number|undefined = undefined;
-    export let max: number|undefined = undefined;
+    interface Props {
+        step?: number|undefined;
+        name?: string;
+        value?: number;
+        min?: number|undefined;
+        max?: number|undefined;
+    }
+
+    let {
+        step = undefined,
+        name = "",
+        value = $bindable(0),
+        min = undefined,
+        max = undefined
+    }: Props = $props();
 </script>
 
 <label class="label" for="range-slider">
